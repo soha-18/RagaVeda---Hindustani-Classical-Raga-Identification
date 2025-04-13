@@ -1,5 +1,7 @@
 import librosa
 import numpy as np
+import os
+import pandas as pd
 
 # 1. Loading the audio file
 #audio_path = 'Datasets/Bhairava/bhairav1.wav'
@@ -34,7 +36,7 @@ if len(onset_env) > 1:
 else:
     print("\nCould not reliably estimate the tempo.")
 
-# 4. Energy or Loudness
+# 4. Energy
 rms = librosa.feature.rms(y=y)[0]
 average_rms = np.mean(rms)
 print(f"\nAverage RMS (Root Mean Square) energy: {average_rms:.4f}")
@@ -47,3 +49,10 @@ print(f"\nAverage RMS (Root Mean Square) energy: {average_rms:.4f}")
 #for i, chroma_value in enumerate(average_chroma):
 #    print(f"{note_names[i]}: {chroma_value:.4f}")
 
+#Feature extractor using mfcc
+mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40);
+mfccs_scaled_features = np.mean(mfccs.T, axis=0)
+#zero_crossings = librosa.feature.zero_crossing_rate(y)
+#rolloff = librosa.feature.spectral_rolloff(y)
+#spectral_flux = librosa.onset.onset_strength(y=y, sr=sr, feature='spectral')
+    
