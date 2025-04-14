@@ -52,7 +52,10 @@ print(f"\nAverage RMS (Root Mean Square) energy: {average_rms:.4f}")
 #Feature extractor using mfcc
 mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40);
 mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-#zero_crossings = librosa.feature.zero_crossing_rate(y)
-#rolloff = librosa.feature.spectral_rolloff(y)
-#spectral_flux = librosa.onset.onset_strength(y=y, sr=sr, feature='spectral')
+zero_crossings = librosa.feature.zero_crossing_rate(y)
+rolloff = librosa.feature.spectral_rolloff(y)
+spectral_flux = librosa.onset.onset_strength(y=y, sr=sr, feature='spectral')
+
+extracted_features = []
+extracted_features.append(mfccs_scaled_features)
     
