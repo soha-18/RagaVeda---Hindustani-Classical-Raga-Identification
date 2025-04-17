@@ -37,32 +37,6 @@ for ragas_folder in os.listdir("Datasets/"):
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
 
-#f0 = librosa.yin(y, fmin=librosa.note_to_hz('C2'), fmax=librosa.note_to_hz('C7'), sr=sr) #fundamental frequency
-#f0_non_zero = f0[f0 > 0]
-
-#if len(f0_non_zero) > 0:
-    #average_pitch_hz = np.mean(f0_non_zero)
-    #print(f"\nAverage fundamental frequency (pitch): {average_pitch_hz:.2f} Hz")
-
-# Converting to a musical note name
-#     closest_note = librosa.hz_to_note(average_pitch_hz)
-#     print(f"Closest musical note: {closest_note}")
-# else:
-#     print("\nCould not detect a clear fundamental frequency.")
-
-# Extracting Tempo
-# onset_env = librosa.onset.onset_detect(y=y, sr=sr)
-# if len(onset_env) > 1:
-#     tempo = librosa.beat.tempo(onset_envelope=onset_env, sr=sr)[0]
-#     print(f"\nEstimated tempo: {tempo:.2f} BPM (beats per minute)")
-# else:
-#     print("\nCould not reliably estimate the tempo.")
-
-# # Energy
-# rms = librosa.feature.rms(y=y)[0]
-# average_rms = np.mean(rms)
-# print(f"\nAverage RMS (Root Mean Square) energy: {average_rms:.4f}")
-
 # Convert the lists to a Pandas DataFrame
 feature_df = pd.DataFrame(features)
 ragas_df = pd.DataFrame({'genre': ragas})
