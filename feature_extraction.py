@@ -8,8 +8,8 @@ import pandas as pd
 audio_path = 'Datasets/Bhoopali/bhoop1.wav'
 y, sr = librosa.load(audio_path)
 
-print(f"Audio loaded with sampling rate: {sr} Hz")
-print(f"Number of audio samples: {len(y)}")
+#print(f"Audio loaded with sampling rate: {sr} Hz")
+#print(f"Number of audio samples: {len(y)}")
 
 # 2. Extracting the Fundamental Frequency
 f0 = librosa.yin(y, fmin=librosa.note_to_hz('C2'), fmax=librosa.note_to_hz('C7'), sr=sr)
