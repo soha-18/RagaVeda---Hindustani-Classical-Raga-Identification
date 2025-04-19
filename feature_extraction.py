@@ -5,10 +5,6 @@ import pandas as pd
 
 ragas = []
 features = []
-#audio_path = 'Datasets/Bhairava/bhairav1.wav'
-#y, sr = librosa.load(audio_path)
-#print(f"Audio loaded with sampling rate: {sr} Hz")
-#print(f"Number of audio samples: {len(y)}")
 
 # Iterate through the folders and the files
 for ragas_folder in os.listdir("Datasets/"):
