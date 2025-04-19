@@ -24,12 +24,9 @@ for ragas_folder in os.listdir("Datasets/"):
                     #Feature extractor using mfcc
                     mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40)
                     mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-                    zero_crossings = librosa.feature.zero_crossing_rate(y)
-                    rolloff = librosa.feature.spectral_rolloff()
-                    spectral_flux = librosa.onset.onset_strength(y=y, sr=sr, feature='spectral')
                     spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
                     mfccs_mean = np.mean(mfccs, axis=1)
-                    feature_vector = np.concatenate(mfccs_mean, mfccs_scaled_features)
+                    feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
                     print(f"Processed: {filename} in {ragas_folder}")
