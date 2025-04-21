@@ -9,7 +9,6 @@ features = []
 # Iterate through the folders and the files
 for ragas_folder in os.listdir("Datasets/"):
     ragas_path = os.path.join("Datasets/", ragas_folder)
-    # print(ragas_folder)
     if os.path.isdir(ragas_path):
         for filename in os.listdir(ragas_path):
             if filename.endswith(".wav") or filename.endswith(".mp3"):
