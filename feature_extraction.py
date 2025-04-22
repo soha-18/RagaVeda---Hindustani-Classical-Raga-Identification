@@ -57,8 +57,8 @@ feature_df = pd.DataFrame(features)
 ragas_df = pd.DataFrame({'genre': ragas})
 dataset = pd.concat([feature_df, ragas_df], axis=1)
 prefix = "mfcc_"
-new_columns = [prefix + str(col) for col in dataset.columns]
-dataset.columns = new_columns
+new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
+dataset.columns = new_columns + [dataset.columns[-1]]
 
 print("\nDataset created successfully!")
 print(dataset.head())
