@@ -47,11 +47,12 @@ for ragas_folder in os.listdir("Datasets/"):
                     #Load the audio file
                     y, sr = librosa.load(audio_path, duration=30)
                     #Feature extractor using mfcc
-                    mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40)
-                    mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-                    spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-                    mfccs_mean = np.mean(mfccs, axis=1)
-                    feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
+                    feature_vector = extract_mfcc_feature_vector(y, sr)
+                    #mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40)
+                    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
+                    #spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+                    #mfccs_mean = np.mean(mfccs, axis=1)
+                    #feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
                     print(f"Processed: {filename} in {ragas_folder}")
