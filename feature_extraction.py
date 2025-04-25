@@ -6,7 +6,14 @@ import matplotlib.pyplot as plt
 
 ragas = []
 features = []
-
+def extract_mfcc_feature_vector(audio_file, sr, n_mfcc=20, n_fft=2048, hop_length=512):
+    mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=n_mfcc, n_fft=n_fft, hop_length=hop_length)
+    mfccs_scaled_features = np.mean(mfccs.T, axis=0)
+    mfccs_mean = np.mean(mfccs, axis=1)
+    feature_vector = np.mean(mfccs, axis=1)
+    feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
+    return feature_vector
+    
 def create_spectrogram(file, n_fft, hop):
     try:
         stft_output = librosa.stft(y, n_fft=n_fft, hop_length=hop)
