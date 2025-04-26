@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 ragas = []
 features = []
+
+#Feature extractor using mfcc
 def extract_mfcc_feature_vector(audio_file, sr, n_mfcc=20, n_fft=2048, hop_length=512):
     mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=n_mfcc, n_fft=n_fft, hop_length=hop_length)
     mfccs_scaled_features = np.mean(mfccs.T, axis=0)
@@ -46,13 +48,7 @@ for ragas_folder in os.listdir("Datasets/"):
                 try:
                     #Load the audio file
                     y, sr = librosa.load(audio_path, duration=30)
-                    #Feature extractor using mfcc
                     feature_vector = extract_mfcc_feature_vector(y, sr)
-                    #mfccs = librosa.feature.mfcc(y=y, sr=sr,n_mfcc= 40)
-                    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-                    #spectral_bandwidth = librosa.feature.spectral_bandwidth(y=y, sr=sr)
-                    #mfccs_mean = np.mean(mfccs, axis=1)
-                    #feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
                     print(f"Processed: {filename} in {ragas_folder}")
