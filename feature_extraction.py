@@ -8,8 +8,10 @@ ragas = []
 features = []
 
 #Feature extractor using mfcc
-def extract_mfcc_feature_vector(audio_file, sr, n_mfcc=20, n_fft=2048, hop_length=512):
-    mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=n_mfcc, n_fft=n_fft, hop_length=hop_length)
+def extract_mfcc_feature_vector(audio_path):
+    #Load the audio file
+    y, sr = librosa.load(audio_path, duration=30)
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20, n_fft=2048, hop_length=512)
     mfccs_scaled_features = np.mean(mfccs.T, axis=0)
     mfccs_mean = np.mean(mfccs, axis=1)
     feature_vector = np.mean(mfccs, axis=1)
@@ -46,9 +48,7 @@ for ragas_folder in os.listdir("Datasets/"):
             if filename.endswith(".wav") or filename.endswith(".mp3"):
                 audio_path = os.path.join(ragas_path, filename)
                 try:
-                    #Load the audio file
-                    y, sr = librosa.load(audio_path, duration=30)
-                    feature_vector = extract_mfcc_feature_vector(y, sr)
+                    feature_vector = extract_mfcc_feature_vector(audio_path)
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
                     print(f"Processed: {filename} in {ragas_folder}")
