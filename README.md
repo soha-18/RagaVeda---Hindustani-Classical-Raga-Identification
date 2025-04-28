@@ -1,2 +1,2 @@
-# Hindustani-Claasical-Raga-Identification
+# Hindustani-Classical-Raga-Identification
 
