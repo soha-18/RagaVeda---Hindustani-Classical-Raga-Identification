@@ -12,10 +12,9 @@ def extract_mfcc_feature_vector(audio_path):
     #Load the audio file
     y, sr = librosa.load(audio_path, duration=30)
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20, n_fft=2048, hop_length=512)
-    mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-    mfccs_mean = np.mean(mfccs, axis=1)
+    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
     feature_vector = np.mean(mfccs, axis=1)
-    feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
+    #feature_vector = np.concatenate((mfccs_mean, mfccs_scaled_features))
     return feature_vector
     
 def create_spectrogram(file, n_fft, hop):
