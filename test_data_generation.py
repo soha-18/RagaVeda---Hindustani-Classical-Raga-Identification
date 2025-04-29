@@ -11,7 +11,7 @@ def extract_label(file_path):
     label = os.path.splitext(os.path.basename(file_path))[0]
     return label
 
-audio_folder = '/kaggle/input/indian-music-raga'
+audio_folder = 'Datasets/Test'
 
 
 for root, dirs, files in os.walk(audio_folder):
@@ -23,7 +23,7 @@ for root, dirs, files in os.walk(audio_folder):
                     feature_vector = extract_mfcc_feature_vector(file_path)
                     test_features.append(feature_vector)
                     test_ragas.append(labels)
-                    print(f"File Processed")
+                    #print(f"File Processed")
 
                 except Exception as e:
                     print(f"Error processing {file}: {e}")
@@ -35,6 +35,7 @@ test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
 prefix = "mfcc_"
 new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
 test_dataset.columns = new_columns + [test_dataset.columns[-1]]
+test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
 
 print("\nDataset created successfully!")
 #print(dataset.head())
