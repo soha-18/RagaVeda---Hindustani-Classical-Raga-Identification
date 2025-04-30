@@ -1,4 +1,8 @@
 librosa>=0.10.1
 numpy>=1.26.0
 pandas>=2.1.0
+<<<<<<< HEAD
 matplotlib>=3.8.0
+=======
+matplotlib>=3.8.0
+>>>>>>> 384a95c8a804cdf7759e07b7f9cc76f18ce2716e
