@@ -57,7 +57,7 @@ for ragas_folder in os.listdir("Datasets/"):
 
 # Convert the lists to a Pandas DataFrame
 feature_df = pd.DataFrame(features)
-ragas_df = pd.DataFrame({'genre': ragas})
+ragas_df = pd.DataFrame({'Ragas': ragas})
 dataset = pd.concat([feature_df, ragas_df], axis=1)
 prefix = "mfcc_"
 new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
