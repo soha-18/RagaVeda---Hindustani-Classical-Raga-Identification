@@ -21,7 +21,7 @@ def extract_mfcc_feature_vector(audio_path):
     feature_vector = np.mean(feature_matrix, axis=1)
     return feature_vector
 
-def apply_augmentation(audio_path, augmentation_type='time_stretch', factor=None):
+def audio_augmentation(audio_path, augmentation_type='time_stretch', factor=None):
     y, sr = librosa.load(audio_path, duration=30)
     if augmentation_type == 'time_stretch':
         if factor is None:
@@ -30,7 +30,7 @@ def apply_augmentation(audio_path, augmentation_type='time_stretch', factor=None
         return y_stretched, sr
     elif augmentation_type == 'pitch_shift':
         if factor is None:
-            factor = random.uniform(-2, 2)  # Shift by up to 2 semitones
+            factor = random.uniform(-2, 2)
         y_shifted = librosa.effects.pitch_shift(y, sr=sr, n_steps=factor)
         return y_shifted, sr
     elif augmentation_type == 'add_noise':
@@ -39,8 +39,7 @@ def apply_augmentation(audio_path, augmentation_type='time_stretch', factor=None
         return y_noisy, sr
     else:
         return y, sr
-
-    
+  
 def create_spectrogram(file, n_fft, hop):
     try:
         stft_output = librosa.stft(y, n_fft=n_fft, hop_length=hop)
