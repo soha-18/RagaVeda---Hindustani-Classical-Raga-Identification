@@ -2,6 +2,8 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+import random
 import matplotlib.pyplot as plt
 
 ragas = []
@@ -18,6 +20,26 @@ def extract_mfcc_feature_vector(audio_path):
     feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
     feature_vector = np.mean(feature_matrix, axis=1)
     return feature_vector
+
+def apply_augmentation(audio_path, augmentation_type='time_stretch', factor=None):
+    y, sr = librosa.load(audio_path, duration=30)
+    if augmentation_type == 'time_stretch':
+        if factor is None:
+            factor = random.uniform(0.8, 1.2)
+        y_stretched = librosa.effects.time_stretch(y, rate=factor)
+        return y_stretched, sr
+    elif augmentation_type == 'pitch_shift':
+        if factor is None:
+            factor = random.uniform(-2, 2)  # Shift by up to 2 semitones
+        y_shifted = librosa.effects.pitch_shift(y, sr=sr, n_steps=factor)
+        return y_shifted, sr
+    elif augmentation_type == 'add_noise':
+        noise = 0.005 * np.random.randn(len(y))
+        y_noisy = y + noise
+        return y_noisy, sr
+    else:
+        return y, sr
+
     
 def create_spectrogram(file, n_fft, hop):
     try:
