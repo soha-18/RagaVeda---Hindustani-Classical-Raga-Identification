@@ -15,8 +15,8 @@ def extract_mfcc_feature_vector(audio_path):
     #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
     delta_mfccs = librosa.feature.delta(mfccs)
     delta2_mfccs = librosa.feature.delta(mfccs, order=2)
-    feature_vector = np.mean(mfccs, axis=1)
-    feature_vector = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
+    feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
+    feature_vector = np.mean(feature_matrix, axis=1)
     return feature_vector
     
 def create_spectrogram(file, n_fft, hop):
