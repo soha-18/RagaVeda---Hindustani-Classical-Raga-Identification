@@ -70,8 +70,8 @@ for ragas_folder in os.listdir("Datasets/"):
             if filename.endswith(".wav") or filename.endswith(".mp3"):
                 audio_path = os.path.join(ragas_path, filename)
                 try:
-                    y_stretched, sr_stretched = audio_augmentation(audio_path, augmentation_type='time_stretch')
-                    y_shifted, sr_shifted = audio_augmentation(audio_path, augmentation_type='pitch_shift')
+                    y_stretched, sr = audio_augmentation(audio_path, augmentation_type='time_stretch')
+                    y_shifted, sr = audio_augmentation(audio_path, augmentation_type='pitch_shift')
                     aug_audio, sr = audio_augmentation(audio_path, augmentation_type='add_noise')
                     feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
                     features.append(feature_vector)
