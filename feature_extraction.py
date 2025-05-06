@@ -9,18 +9,6 @@ import matplotlib.pyplot as plt
 ragas = []
 features = []
 
-#Feature extractor using mfcc
-def extract_mfcc_feature_vector(audio_path):
-    #Load the audio file
-    y, sr = librosa.load(audio_path, duration=30)
-    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40, n_fft=2048, hop_length=512)
-    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
-    delta_mfccs = librosa.feature.delta(mfccs)
-    delta2_mfccs = librosa.feature.delta(mfccs, order=2)
-    feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
-    feature_vector = np.mean(feature_matrix, axis=1)
-    return feature_vector
-
 def audio_augmentation(audio_path, augmentation_type='time_stretch', factor=None):
     y, sr = librosa.load(audio_path, duration=30)
     if augmentation_type == 'time_stretch':
@@ -61,6 +49,18 @@ def plot_spectrogram(spectrogram, sr, hop_length):
         plt.title("Spectrogram")
         plt.tight_layout()
         plt.show()
+
+#Feature extractor using mfcc
+def extract_mfcc_feature_vector(audio_file, sr):
+    #Load the audio file
+    #y, sr = librosa.load(audio_path, duration=30)
+    mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=40, n_fft=2048, hop_length=512)
+    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
+    delta_mfccs = librosa.feature.delta(mfccs)
+    delta2_mfccs = librosa.feature.delta(mfccs, order=2)
+    feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
+    feature_vector = np.mean(feature_matrix, axis=1)
+    return feature_vector
     
 # Iterate through the folders and the files
 for ragas_folder in os.listdir("Datasets/"):
