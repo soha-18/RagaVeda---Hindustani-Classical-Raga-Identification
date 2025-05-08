@@ -20,7 +20,12 @@ for root, dirs, files in os.walk(audio_folder):
                 file_path = os.path.join(root, file)
                 try:
                     labels = extract_label(file_path)
-                    feature_vector = extract_mfcc_feature_vector(file_path)
+                    y, sr = librosa.load(file_path, duration=30)
+                    y_stretched = audio_augmentation(y, sr, augmentation_type='time_stretch')
+                    y_shifted = audio_augmentation(y_stretched, sr, augmentation_type='pitch_shift')
+                    aug_audio = audio_augmentation(y_shifted, sr, augmentation_type='add_noise')
+                    feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
+                    #feature_vector = extract_mfcc_feature_vector(file_path)
                     test_features.append(feature_vector)
                     test_ragas.append(labels)
                     #print(f"File Processed")
