@@ -1,6 +1,7 @@
 import os
 import librosa
 import numpy as np
+import pandas as pd
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.models import Sequential
@@ -32,3 +33,7 @@ for ragas_folder in os.listdir("Datasets/"):
 
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
+
+feature_df = pd.DataFrame({'Mel_Features':mel_features})
+ragas_df = pd.DataFrame({'Ragas': ragas})
+mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
