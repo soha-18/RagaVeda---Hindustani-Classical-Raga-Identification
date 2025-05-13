@@ -2,7 +2,6 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 import random
 import matplotlib.pyplot as plt
 
