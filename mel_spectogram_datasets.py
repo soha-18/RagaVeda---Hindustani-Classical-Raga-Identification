@@ -34,3 +34,9 @@ for ragas_folder in os.listdir("Datasets/"):
 feature_df = pd.DataFrame({'Mel_Features':mel_features})
 ragas_df = pd.DataFrame({'Ragas': ragas})
 mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
+
+print("\nDataset created successfully!")
+#print(dataset.head())
+
+# Convert dataset to csv
+mel_dataset.to_csv("mel_features_dataset.csv", index=False)
