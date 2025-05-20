@@ -12,7 +12,7 @@ def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
     mel_spec = librosa.feature.melspectrogram(y=file, sr=sr, n_mels=n_mels)
     mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
     mel_spec_db = mel_spec_db.T
-    mel_spec_db_padded = pad_sequences([mel_spec_db], padding='post', maxlen=max_pad_len, dtype='float32')[0]
+    mel_spec_db_padded = pad_sequences([mel_spec_db], padding='post', maxlen=max_pad_len, dtype='float64')[0]
 
     return mel_spec_db_padded
 
