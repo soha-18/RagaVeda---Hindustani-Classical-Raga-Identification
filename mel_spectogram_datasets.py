@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 mel_features = []
 ragas = []
+mel_dataset = []
 
 def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
     mel_spec = librosa.feature.melspectrogram(y=file, sr=sr, n_mels=n_mels)
@@ -25,15 +26,17 @@ for ragas_folder in os.listdir("Datasets/"):
                 try:
                     y, sr = librosa.load(audio_path, duration=30)
                     feature_vector = extract_features_mel(y, sr)
-                    mel_features.append(feature_vector)
-                    ragas.append(ragas_folder)
+                    #mel_features.append(feature_vector)
+                    #ragas.append(ragas_folder)
+                    mel_features.append([feature_vector, ragas_folder])
 
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
 
-feature_df = pd.DataFrame({'Mel_Features':mel_features})
-ragas_df = pd.DataFrame({'Ragas': ragas})
-mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
+#feature_df = pd.DataFrame({'Mel_Features':mel_features})
+#ragas_df = pd.DataFrame({'Ragas': ragas})
+#mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
+mel_dataset = pd.DataFrame(mel_features)
 
-print("\nDataset created successfully!")
 mel_dataset.to_csv("mel_features_dataset.csv", index=False)
+print("\nDataset created successfully!")
