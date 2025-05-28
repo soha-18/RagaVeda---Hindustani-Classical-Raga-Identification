@@ -41,9 +41,10 @@ prefix = "mfcc_"
 new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
 test_dataset.columns = new_columns + [test_dataset.columns[-1]]
 test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
-test_dataset_extracted = test_dataset[(test_dataset['Ragas'] == 'bhoop') | (test_dataset['Ragas'] == 'bhoopali') | (test_dataset['Ragas'] == 'yaman')]
+#test_dataset_extracted = test_dataset[(test_dataset['Ragas'] == 'bhoop') | (test_dataset['Ragas'] == 'bhoopali') | (test_dataset['Ragas'] == 'yaman')]
 print("\nDataset created successfully!")
 #print(dataset.head())
 
 # Convert dataset to csv
-test_dataset_extracted.to_csv("test_dataset.csv", index=False)
+#test_dataset_extracted.to_csv("test_dataset.csv", index=False)
+test_dataset.to_csv("test_dataset.csv", index=False)
