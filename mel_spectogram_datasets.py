@@ -31,7 +31,7 @@ for ragas_folder in os.listdir("Datasets/"):
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
 
-mel_dataset = pd.DataFrame(mel_features)
+mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
 
 mel_dataset.to_csv("mel_features_dataset.csv", index=False)
 print("\nDataset created successfully!")
