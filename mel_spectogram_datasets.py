@@ -3,11 +3,9 @@ import librosa
 import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import matplotlib.pyplot as plt
+
 
 mel_features = []
-#ragas = []
-mel_dataset = []
 
 def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
     mel_spec = librosa.feature.melspectrogram(y=file, sr=sr, n_mels=n_mels)
@@ -33,9 +31,6 @@ for ragas_folder in os.listdir("Datasets/"):
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
 
-#feature_df = pd.DataFrame({'Mel_Features':mel_features})
-#ragas_df = pd.DataFrame({'Ragas': ragas})
-#mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
 mel_dataset = pd.DataFrame(mel_features)
 
 mel_dataset.to_csv("mel_features_dataset.csv", index=False)
