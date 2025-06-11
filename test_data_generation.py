@@ -18,7 +18,7 @@ audio_folder = 'Test'
 
 for root, dirs, files in os.walk(audio_folder):
         for file in files:
-            if file.endswith(".wav"):
+            if file.endswith(".wav" or ".mp3"):
                 file_path = os.path.join(root, file)
                 try:
                     labels = extract_label(file_path)
@@ -39,16 +39,16 @@ for root, dirs, files in os.walk(audio_folder):
 ## Convert the lists to a Pandas DataFrame
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.replace('\d+', '', regex=True)
-# test_feature_df = pd.DataFrame(test_features)
-# test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
-# test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
-# prefix = "mfcc_"
-# new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
-# test_dataset.columns = new_columns + [test_dataset.columns[-1]]
-# test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
-# test_dataset['Ragas'] = test_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
-# test_dataset['Ragas'] = test_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
-# test_dataset['Ragas'] = test_dataset['Ragas'].str.capitalize()
+test_feature_df = pd.DataFrame(test_features)
+test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
+test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
+prefix = "mfcc_"
+new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
+test_dataset.columns = new_columns + [test_dataset.columns[-1]]
+test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
+test_dataset['Ragas'] = test_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
+test_dataset['Ragas'] = test_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
+test_dataset['Ragas'] = test_dataset['Ragas'].str.capitalize()
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.capitalize()
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Bhoop', 'Bhoopali')
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbari')
@@ -57,4 +57,4 @@ print("\nDataset created successfully!")
 
 # Convert dataset to csv
 test_mel_dataset.to_csv("test_mel_dataset.csv", index=False)
-# test_dataset.to_csv("test_dataset.csv", index=False)
+test_dataset.to_csv("test_dataset.csv", index=False)
