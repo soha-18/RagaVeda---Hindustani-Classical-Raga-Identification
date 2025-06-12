@@ -18,7 +18,7 @@ audio_folder = 'Test'
 
 for root, dirs, files in os.walk(audio_folder):
         for file in files:
-            if file.endswith(".wav" or ".mp3"):
+            if file.endswith(".wav") or file.endswith(".mp3"):
                 file_path = os.path.join(root, file)
                 try:
                     labels = extract_label(file_path)
