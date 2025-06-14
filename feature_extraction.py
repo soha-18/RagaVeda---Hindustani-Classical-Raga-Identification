@@ -50,10 +50,7 @@ def plot_spectrogram(spectrogram, sr, hop_length):
 
 #Feature extractor using mfcc
 def extract_mfcc_feature_vector(audio_file, sr):
-    #Load the audio file
-    #y, sr = librosa.load(audio_path, duration=30)
     mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=40, n_fft=2048, hop_length=512)
-    #mfccs_scaled_features = np.mean(mfccs.T, axis=0)
     delta_mfccs = librosa.feature.delta(mfccs)
     delta2_mfccs = librosa.feature.delta(mfccs, order=2)
     feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
@@ -75,7 +72,6 @@ for ragas_folder in os.listdir("Datasets/"):
                     feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
-                    #print(f"Processed: {filename} in {ragas_folder}")
 
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
