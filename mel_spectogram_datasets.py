@@ -24,8 +24,6 @@ for ragas_folder in os.listdir("Datasets/"):
                 try:
                     y, sr = librosa.load(audio_path, duration=30)
                     feature_vector = extract_features_mel(y, sr)
-                    #mel_features.append(feature_vector)
-                    #ragas.append(ragas_folder)
                     mel_features.append([feature_vector, ragas_folder])
 
                 except Exception as e:
