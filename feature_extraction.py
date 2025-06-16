@@ -4,9 +4,11 @@ import os
 import pandas as pd
 import random
 import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 ragas = []
 features = []
+mel_features = []
 
 def audio_augmentation(audio_file, sr, augmentation_type='time_stretch', factor=None):
     if augmentation_type == 'time_stretch':
@@ -34,6 +36,13 @@ def create_spectrogram(file, n_fft, hop):
     except Exception as e:
         print(f"Error processing file {file}: {e}")
         return None
+    
+def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
+    mel_spec = librosa.feature.melspectrogram(y=file, sr=sr, n_mels=n_mels)
+    mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
+    mel_spec_db = mel_spec_db.T
+    mel_spec_db_padded = pad_sequences([mel_spec_db], padding='post', maxlen=max_pad_len, dtype='float32')[0]
+    return mel_spec_db_padded
 
 def plot_spectrogram(spectrogram, sr, hop_length):
     plt.figure(figsize=(10, 4))
@@ -88,3 +97,38 @@ print("\nDataset created successfully!")
 
 # Convert dataset to csv
 dataset.to_csv("audio_features_dataset.csv", index=False)
+
+
+if __name__ == "__main__":
+    print("Please select the dataset type.")
+    while True:
+        print("\n--- Select a dataset type to create ---")
+        print("1. MFCC Feature")
+        print("2. MFCC features with Audio Augmentation")
+        print("3. Mel Spectogram")
+        print("4. Exit")
+
+        feature_selection = input("Enter your choice (1-4): ")
+
+        if feature_selection == '1':
+            dataset = create_mfcc_dataset()
+        elif feature_selection == '2':
+            dataset = create_mfcc_dataset_with_audio_aug()
+        elif feature_selection == '3':
+            dataset = create_melSpectogram_dataset()
+        elif feature_selection == '4':
+            print("Exiting from feature extraction. Goodbye!")
+            break
+        else:
+            print("Invalid selection. Please enter a number between 1 and 4.")
+
+        # You can add further actions here with the 'dataset' if it was successfully created
+        if dataset is not None:
+            save_option = input("\nDo you want to save this dataset to a CSV file? (yes/no): ").lower()
+            if save_option == 'yes':
+                file_name = input("Enter filename: ")
+                try:
+                    dataset.to_csv(file_name, index=False)
+                    print(f"Dataset saved to {file_name}")
+                except Exception as e:
+                    print(f"Error saving file: {e}")
