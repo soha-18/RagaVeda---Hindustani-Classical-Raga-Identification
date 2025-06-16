@@ -30,7 +30,7 @@ def audio_augmentation(audio_file, sr, augmentation_type='time_stretch', factor=
   
 def create_spectrogram(file, n_fft, hop):
     try:
-        stft_output = librosa.stft(y, n_fft=n_fft, hop_length=hop)
+        stft_output = librosa.stft(file, n_fft=n_fft, hop_length=hop)
         spectrogram = np.abs(stft_output)
         return spectrogram
     except Exception as e:
@@ -168,8 +168,15 @@ if __name__ == "__main__":
         if dataset is not None:
             print("\nDataset created successfully!")
             save_option = input("\nDo you want to save this dataset to a CSV file? (yes/no): ").lower()
-            if save_option == 'yes':
-                file_name = input("Enter filename: ")
+            if save_option == 'yes' & feature_selection == '1':
+                # file_name = input("Enter filename: ")
+                file_name = "mfcc_dataset.csv"
+            elif save_option == 'yes' & feature_selection == '2':
+                # file_name = input("Enter filename: ")
+                file_name = "audio_aug_mfcc_dataset.csv"
+            elif save_option == 'yes' & feature_selection == '3':
+                # file_name = input("Enter filename: ")
+                file_name = "mel_dataset.csv"
                 try:
                     dataset.to_csv(file_name, index=False)
                     print(f"Dataset saved to {file_name}")
