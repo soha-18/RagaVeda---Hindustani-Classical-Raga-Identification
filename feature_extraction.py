@@ -64,14 +64,39 @@ def extract_mfcc_feature_vector(audio_file, sr):
     feature_matrix = np.concatenate([mfccs, delta_mfccs, delta2_mfccs], axis=0)
     feature_vector = np.mean(feature_matrix, axis=1)
     return feature_vector
+
+def create_mfcc_dataset():
+    # Iterate through the folders and the files
+    for ragas_folder in os.listdir("Datasets/"):
+        ragas_path = os.path.join("Datasets/", ragas_folder)
+        if os.path.isdir(ragas_path):
+            for filename in os.listdir(ragas_path):
+                if filename.endswith(".wav") or filename.endswith(".mp3"):
+                    audio_path = os.path.join(ragas_path, filename)
+                try:
+                    y, sr = librosa.load(audio_path, duration=30)
+                    feature_vector = extract_mfcc_feature_vector(y, sr)
+                    features.append(feature_vector)
+                    ragas.append(ragas_folder)
+                except Exception as e:
+                    print(f"Error processing {filename}: {e}")
     
-# Iterate through the folders and the files
-for ragas_folder in os.listdir("Datasets/"):
-    ragas_path = os.path.join("Datasets/", ragas_folder)
-    if os.path.isdir(ragas_path):
-        for filename in os.listdir(ragas_path):
-            if filename.endswith(".wav") or filename.endswith(".mp3"):
-                audio_path = os.path.join(ragas_path, filename)
+    feature_df = pd.DataFrame(features)
+    ragas_df = pd.DataFrame({'Ragas': ragas})
+    dataset = pd.concat([feature_df, ragas_df], axis=1)
+    prefix = "mfcc_"
+    new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
+    dataset.columns = new_columns + [dataset.columns[-1]]
+    return dataset
+
+def create_mfcc_dataset_with_audio_aug():
+    # Iterate through the folders and the files
+    for ragas_folder in os.listdir("Datasets/"):
+        ragas_path = os.path.join("Datasets/", ragas_folder)
+        if os.path.isdir(ragas_path):
+            for filename in os.listdir(ragas_path):
+                if filename.endswith(".wav") or filename.endswith(".mp3"):
+                    audio_path = os.path.join(ragas_path, filename)
                 try:
                     y, sr = librosa.load(audio_path, duration=30)
                     y_stretched = audio_augmentation(y, sr, augmentation_type='time_stretch')
@@ -80,23 +105,40 @@ for ragas_folder in os.listdir("Datasets/"):
                     feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
-
                 except Exception as e:
                     print(f"Error processing {filename}: {e}")
 
-# Convert the lists to a Pandas DataFrame
-feature_df = pd.DataFrame(features)
-ragas_df = pd.DataFrame({'Ragas': ragas})
-dataset = pd.concat([feature_df, ragas_df], axis=1)
-prefix = "mfcc_"
-new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
-dataset.columns = new_columns + [dataset.columns[-1]]
+    feature_df = pd.DataFrame(features)
+    ragas_df = pd.DataFrame({'Ragas': ragas})
+    dataset = pd.concat([feature_df, ragas_df], axis=1)
+    prefix = "mfcc_"
+    new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
+    dataset.columns = new_columns + [dataset.columns[-1]]
+    return dataset
 
-print("\nDataset created successfully!")
+def create_melSpectogram_dataset():
+    for ragas_folder in os.listdir("Datasets/"):
+        ragas_path = os.path.join("Datasets/", ragas_folder)
+        if os.path.isdir(ragas_path):
+           for filename in os.listdir(ragas_path):
+               if filename.endswith(".wav") or filename.endswith(".mp3"):
+                   audio_path = os.path.join(ragas_path, filename)
+               try:
+                   y, sr = librosa.load(audio_path, duration=30)
+                   feature_vector = extract_features_mel(y, sr)
+                   mel_features.append([feature_vector, ragas_folder])
+
+               except Exception as e:
+                   print(f"Error processing {filename}: {e}")
+
+    mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
+    return mel_dataset
+
+#print("\nDataset created successfully!")
 #print(dataset.head())
 
 # Convert dataset to csv
-dataset.to_csv("audio_features_dataset.csv", index=False)
+# dataset.to_csv("audio_features_dataset.csv", index=False)
 
 
 if __name__ == "__main__":
@@ -122,8 +164,9 @@ if __name__ == "__main__":
         else:
             print("Invalid selection. Please enter a number between 1 and 4.")
 
-        # You can add further actions here with the 'dataset' if it was successfully created
+        # Convert dataset to csv
         if dataset is not None:
+            print("\nDataset created successfully!")
             save_option = input("\nDo you want to save this dataset to a CSV file? (yes/no): ").lower()
             if save_option == 'yes':
                 file_name = input("Enter filename: ")
