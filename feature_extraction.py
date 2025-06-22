@@ -10,23 +10,25 @@ ragas = []
 features = []
 mel_features = []
 
-def audio_augmentation(audio_file, sr, augmentation_type='time_stretch', factor=None):
-    if augmentation_type == 'time_stretch':
+class audio_augmentation:
+
+    def time_stretch(self, audio_file, factor=None):
         if factor is None:
-            factor = random.uniform(0.8, 1.2)
+           factor = random.uniform(0.8, 1.2)
         y_stretched = librosa.effects.time_stretch(audio_file, rate=factor)
         return y_stretched
-    elif augmentation_type == 'pitch_shift':
+    
+    def pitch_shift(self, audio_file, sr, factor=None):
         if factor is None:
             factor = random.uniform(-2, 2)
         y_shifted = librosa.effects.pitch_shift(audio_file, sr=sr, n_steps=factor)
         return y_shifted
-    elif augmentation_type == 'add_noise':
+    
+    def noise_addition(self, audio_file):
         noise = 0.005 * np.random.randn(len(audio_file))
         y_noisy = audio_file + noise
         return y_noisy
-    else:
-        return audio_file
+
   
 def create_spectrogram(file, n_fft, hop):
     try:
@@ -133,13 +135,6 @@ def create_melSpectogram_dataset():
 
     mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
     return mel_dataset
-
-#print("\nDataset created successfully!")
-#print(dataset.head())
-
-# Convert dataset to csv
-# dataset.to_csv("audio_features_dataset.csv", index=False)
-
 
 if __name__ == "__main__":
     print("Please select the dataset type.")
