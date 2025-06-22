@@ -28,7 +28,6 @@ class audio_augmentation:
         noise = 0.005 * np.random.randn(len(audio_file))
         y_noisy = audio_file + noise
         return y_noisy
-
   
 def create_spectrogram(file, n_fft, hop):
     try:
@@ -101,9 +100,13 @@ def create_mfcc_dataset_with_audio_aug():
                     audio_path = os.path.join(ragas_path, filename)
                 try:
                     y, sr = librosa.load(audio_path, duration=30)
-                    y_stretched = audio_augmentation(y, sr, augmentation_type='time_stretch')
-                    y_shifted = audio_augmentation(y_stretched, sr, augmentation_type='pitch_shift')
-                    aug_audio = audio_augmentation(y_shifted, sr, augmentation_type='add_noise')
+                    a = audio_augmentation()
+                    y_stretched = a.time_stretch(y)
+                    y_shifted = a.pitch_shift(y_stretched,sr)
+                    aug_audio = a.noise_addition(y_shifted)
+                    # y_stretched = audio_augmentation(y, sr, augmentation_type='time_stretch')
+                    # y_shifted = audio_augmentation(y_stretched, sr, augmentation_type='pitch_shift')
+                    # aug_audio = audio_augmentation(y_shifted, sr, augmentation_type='add_noise')
                     feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
