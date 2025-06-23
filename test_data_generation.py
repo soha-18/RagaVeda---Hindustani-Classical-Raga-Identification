@@ -3,8 +3,7 @@ import numpy as np
 import os
 import pandas as pd
 from feature_extraction import extract_mfcc_feature_vector
-from feature_extraction import audio_augmentation
-from mel_spectogram_datasets import extract_features_mel
+import feature_extraction
 
 test_features = []
 mel_test_features = []
