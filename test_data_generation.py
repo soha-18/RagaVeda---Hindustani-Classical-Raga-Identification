@@ -57,40 +57,6 @@ test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbar
 print("\nDataset created successfully!")
 #print(dataset.head())
 
-if __name__ == "__main__":
-    while True:
-        print("\n--- Select a test dataset type to create ---")
-        print("1. MFCC Feature")
-        print("2. MFCC features with Audio Augmentation")
-        print("3. Mel Spectogram")
-        print("4. Exit")
+dataset.to_csv(file_name, index=False)
 
-        feature_selection = input("Enter your choice (1-4): ")
-
-        if feature_selection == '1':
-            dataset = create_mfcc_dataset()
-            file_name = "mfcc_test_dataset.csv"
-        elif feature_selection == '2':
-            dataset = create_mfcc_dataset_with_audio_aug()
-            file_name = "audio_aug_mfcc_test_dataset.csv"
-        elif feature_selection == '3':
-            dataset = create_melSpectogram_dataset()
-            file_name = "mel_test_dataset.csv"
-        elif feature_selection == '4':
-            print("Exiting from feature extraction. Goodbye!")
-            break
-        else:
-            print("Invalid selection. Please enter a number between 1 and 4.")
-            dataset = None
-
-        if dataset is not None:
-            print("\nDataset created successfully!")
-            save_option = input("\nDo you want to save this dataset to a CSV file? (yes/no): ").lower()
-            if save_option == 'yes':
-                # file_name = input("Enter filename: ")
-                try:
-                    dataset.to_csv(file_name, index=False)
-                    print(f"Dataset saved to {file_name}")
-                except Exception as e:
-                    print(f"Error saving file: {e}")
 
