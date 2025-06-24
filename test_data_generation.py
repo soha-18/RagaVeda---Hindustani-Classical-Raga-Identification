@@ -2,10 +2,10 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
-from feature_extraction import extract_mfcc_feature_vector
-import feature_extraction
+from feature_extraction import create_mfcc_dataset, extract_mfcc_feature_vector, create_melSpectogram_dataset, audio_augmentation
 
-test_features = []
+mfcc_test_features = []
+mfcc_test_audio_aug_features = []
 mel_test_features = []
 test_ragas = []
 
@@ -22,12 +22,15 @@ for root, dirs, files in os.walk(audio_folder):
                 try:
                     labels = extract_label(file_path)
                     y, sr = librosa.load(file_path, duration=30)
-                    y_stretched = audio_augmentation(y, sr, augmentation_type='time_stretch')
-                    y_shifted = audio_augmentation(y_stretched, sr, augmentation_type='pitch_shift')
-                    aug_audio = audio_augmentation(y_shifted, sr, augmentation_type='add_noise')
-                    feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
-                    feature_vector_mel = extract_features_mel(y, sr)
-                    test_features.append(feature_vector)
+                    ad = audio_augmentation
+                    y_stretched = ad.time_stretch(y)
+                    y_shifted = ad.pitch_shift(y_stretched, sr)
+                    aug_audio = ad.noise_addition(y_shifted)
+                    mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
+                    feature_vector_audio_aug = extract_mfcc_feature_vector(aug_audio, sr)
+                    feature_vector_mel = create_melSpectogram_dataset(y, sr)
+                    mfcc_test_features.append(mfcc_feature_vector)
+                    mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
                     mel_test_features.append([feature_vector_mel, labels])
                     #print(f"File Processed")
@@ -38,7 +41,7 @@ for root, dirs, files in os.walk(audio_folder):
 ## Convert the lists to a Pandas DataFrame
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.replace('\d+', '', regex=True)
-test_feature_df = pd.DataFrame(test_features)
+test_feature_df = pd.DataFrame(mfcc_test_features)
 test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
 test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
 prefix = "mfcc_"
