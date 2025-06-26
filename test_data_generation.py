@@ -49,10 +49,15 @@ test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_raga
 prefix = "mfcc_"
 new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
 test_dataset.columns = new_columns + [test_dataset.columns[-1]]
+test_audio_aug_feature_dataset.columns = new_columns + [test_audio_aug_feature_dataset.columns[-1]]
 test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
 test_dataset['Ragas'] = test_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
 test_dataset['Ragas'] = test_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
 test_dataset['Ragas'] = test_dataset['Ragas'].str.capitalize()
+test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.replace('\d+', '', regex=True)
+test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
+test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
+test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.capitalize()
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.capitalize()
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Bhoop', 'Bhoopali')
 test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbari')
