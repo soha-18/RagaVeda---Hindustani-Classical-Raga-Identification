@@ -44,6 +44,8 @@ test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.replace('\d+', '', reg
 test_feature_df = pd.DataFrame(mfcc_test_features)
 test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
 test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
+test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
+test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
 prefix = "mfcc_"
 new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
 test_dataset.columns = new_columns + [test_dataset.columns[-1]]
