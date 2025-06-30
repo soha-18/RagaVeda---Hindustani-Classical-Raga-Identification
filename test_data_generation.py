@@ -13,6 +13,19 @@ def extract_label(file_path):
     label = os.path.splitext(os.path.basename(file_path))[0]
     return label
 
+def modify_dataset(dataset:pd.DataFrame):
+    if 'Ragas' in dataset.columns:
+        dataset['Ragas'] = dataset['Ragas'].str.replace('\d+', '', regex=True)
+        dataset['Ragas'] = dataset['Ragas'].str.capitalize()
+    else:
+        print("Warning: Required column not found in the dataset. Skipping modifications.")
+    return dataset
+
+def modify_columns(dataset: pd.DataFrame, prefix: str = "mfcc_") -> pd.DataFrame:
+    new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
+    dataset.columns = new_columns + [dataset.columns[-1]]
+    return dataset
+
 audio_folder = 'Test'
 
 for root, dirs, files in os.walk(audio_folder):
