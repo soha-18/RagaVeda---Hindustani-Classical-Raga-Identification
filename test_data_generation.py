@@ -17,6 +17,8 @@ def modify_dataset(dataset:pd.DataFrame):
     if 'Ragas' in dataset.columns:
         dataset['Ragas'] = dataset['Ragas'].str.replace('\d+', '', regex=True)
         dataset['Ragas'] = dataset['Ragas'].str.capitalize()
+        dataset['Ragas'] = dataset['Ragas'].replace('Bhoop', 'Bhoopali')
+        dataset['Ragas'] = dataset['Ragas'].replace('Dkanada', 'Darbari')
     else:
         print("Warning: Required column not found in the dataset. Skipping modifications.")
     return dataset
@@ -56,22 +58,17 @@ for root, dirs, files in os.walk(audio_folder):
 #Mel spectogram test dataset
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset = modify_dataset(test_mel_dataset)
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Bhoop', 'Bhoopali')
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbari')
 
+#MFCC test dataset
 test_feature_df = pd.DataFrame(mfcc_test_features)
 test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
 test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
+test_dataset = modify_columns(test_dataset)
+test_dataset = modify_dataset(test_dataset)
+
 test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
 test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
-prefix = "mfcc_"
-new_columns = [prefix + str(col) for col in test_dataset.columns[:-1]]
-test_dataset.columns = new_columns + [test_dataset.columns[-1]]
-test_audio_aug_feature_dataset.columns = new_columns + [test_audio_aug_feature_dataset.columns[-1]]
-test_dataset['Ragas'] = test_dataset['Ragas'].str.replace('\d+', '', regex=True)
-test_dataset['Ragas'] = test_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
-test_dataset['Ragas'] = test_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
-test_dataset['Ragas'] = test_dataset['Ragas'].str.capitalize()
+
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.replace('\d+', '', regex=True)
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
