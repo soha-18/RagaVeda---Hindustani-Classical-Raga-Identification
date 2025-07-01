@@ -52,8 +52,13 @@ for root, dirs, files in os.walk(audio_folder):
                     print(f"Error processing {file}: {e}")
 
 ## Convert the lists to a Pandas DataFrame
+
+#Mel spectogram test dataset
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.replace('\d+', '', regex=True)
+test_mel_dataset = modify_dataset(test_mel_dataset)
+test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Bhoop', 'Bhoopali')
+test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbari')
+
 test_feature_df = pd.DataFrame(mfcc_test_features)
 test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
 test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
@@ -71,9 +76,6 @@ test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
 test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.capitalize()
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].str.capitalize()
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Bhoop', 'Bhoopali')
-test_mel_dataset['Ragas'] = test_mel_dataset['Ragas'].replace('Dkanada', 'Darbari')
 print("\nDataset created successfully!")
 
 
