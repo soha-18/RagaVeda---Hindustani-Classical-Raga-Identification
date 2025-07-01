@@ -54,7 +54,6 @@ for root, dirs, files in os.walk(audio_folder):
                     print(f"Error processing {file}: {e}")
 
 ## Convert the lists to a Pandas DataFrame
-
 #Mel spectogram test dataset
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset = modify_dataset(test_mel_dataset)
@@ -66,13 +65,11 @@ test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
 test_dataset = modify_columns(test_dataset)
 test_dataset = modify_dataset(test_dataset)
 
+#MFCC audio augmented test dataset
 test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
 test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
-
-test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.replace('\d+', '', regex=True)
-test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['bhoop', 'bhoopali'], 'Bhoopali')
-test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].replace(['DKanada', 'darbari'], 'Darbari')
-test_audio_aug_feature_dataset['Ragas'] = test_audio_aug_feature_dataset['Ragas'].str.capitalize()
+test_audio_aug_feature_dataset = modify_columns(test_audio_aug_feature_dataset)
+test_audio_aug_feature_dataset = modify_dataset(test_audio_aug_feature_dataset)
 print("\nDataset created successfully!")
 
 
