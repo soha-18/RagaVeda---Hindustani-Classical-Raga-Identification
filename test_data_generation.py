@@ -38,17 +38,17 @@ for root, dirs, files in os.walk(audio_folder):
                 try:
                     labels = extract_label(file_path)
                     y, sr = librosa.load(file_path, duration=30)
-                    ad = audio_augmentation
-                    y_stretched = ad.time_stretch(audio_file = y)
-                    y_shifted = ad.pitch_shift(audio_file = y_stretched, sr= sr)
-                    aug_audio = ad.noise_addition(audio_file = y_shifted)
+                    ad = audio_augmentation()
+                    y_stretched = ad.time_stretch(y)
+                    y_shifted = ad.pitch_shift(y_stretched, sr)
+                    aug_audio = ad.noise_addition(y_shifted)
                     mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
                     feature_vector_audio_aug = extract_mfcc_feature_vector(aug_audio, sr)
-                    feature_vector_mel = create_melSpectogram_dataset(y, sr)
+                    #feature_vector_mel = create_melSpectogram_dataset(y, sr)
                     mfcc_test_features.append(mfcc_feature_vector)
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
-                    mel_test_features.append([feature_vector_mel, labels])
+                    #mel_test_features.append([feature_vector_mel, labels])
 
 
                 except Exception as e:
@@ -56,8 +56,8 @@ for root, dirs, files in os.walk(audio_folder):
 
 ## Convert the lists to a Pandas DataFrame
 #Mel spectogram test dataset
-test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
-test_mel_dataset = modify_dataset(test_mel_dataset)
+# test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
+# test_mel_dataset = modify_dataset(test_mel_dataset)
 
 #MFCC test dataset
 test_feature_df = pd.DataFrame(mfcc_test_features)
@@ -75,7 +75,7 @@ print("\nDataset created successfully!")
 
 
 test_dataset.to_csv("mfcc_test_dataset.csv", index=False)
-test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
-test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset.csv", index=False)
+# test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
+test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset_aug.csv", index=False)
 
 
