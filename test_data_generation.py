@@ -13,7 +13,7 @@ def extract_label(file_path):
     label = os.path.splitext(os.path.basename(file_path))[0]
     return label
 
-def modify_dataset(dataset:pd.DataFrame):
+def modify_dataset(dataset: pd.DataFrame):
     if 'Ragas' in dataset.columns:
         dataset['Ragas'] = dataset['Ragas'].str.replace('\d+', '', regex=True)
         dataset['Ragas'] = dataset['Ragas'].str.capitalize()
@@ -24,6 +24,7 @@ def modify_dataset(dataset:pd.DataFrame):
     return dataset
 
 def modify_columns(dataset: pd.DataFrame, prefix: str = "mfcc_") -> pd.DataFrame:
+#def modify_columns(dataset, prefix: str = "mfcc_"):
     new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
     dataset.columns = new_columns + [dataset.columns[-1]]
     return dataset
@@ -38,9 +39,9 @@ for root, dirs, files in os.walk(audio_folder):
                     labels = extract_label(file_path)
                     y, sr = librosa.load(file_path, duration=30)
                     ad = audio_augmentation
-                    y_stretched = ad.time_stretch(y)
-                    y_shifted = ad.pitch_shift(y_stretched, sr)
-                    aug_audio = ad.noise_addition(y_shifted)
+                    y_stretched = ad.time_stretch(audio_file = y)
+                    y_shifted = ad.pitch_shift(audio_file = y_stretched, sr= sr)
+                    aug_audio = ad.noise_addition(audio_file = y_shifted)
                     mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
                     feature_vector_audio_aug = extract_mfcc_feature_vector(aug_audio, sr)
                     feature_vector_mel = create_melSpectogram_dataset(y, sr)
