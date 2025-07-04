@@ -64,7 +64,7 @@ def read_file_from_folder(folder):
             for filename in os.listdir(ragas_path):
                 if filename.endswith(".wav") or filename.endswith(".mp3"):
                     audio_path = os.path.join(ragas_path, filename)
-    return audio_path
+                    return audio_path
 
 #Feature extractor using mfcc
 def extract_mfcc_feature_vector(audio_file, sr):
