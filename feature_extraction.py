@@ -57,6 +57,15 @@ def plot_spectrogram(spectrogram, sr, hop_length):
     plt.tight_layout()
     plt.show()
 
+def read_file_from_folder(folder):
+    for ragas_folder in os.listdir(folder):
+        ragas_path = os.path.join(folder, ragas_folder)
+        if os.path.isdir(ragas_path):
+            for filename in os.listdir(ragas_path):
+                if filename.endswith(".wav") or filename.endswith(".mp3"):
+                    audio_path = os.path.join(ragas_path, filename)
+    return audio_path
+
 #Feature extractor using mfcc
 def extract_mfcc_feature_vector(audio_file, sr):
     mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=40, n_fft=2048, hop_length=512)
