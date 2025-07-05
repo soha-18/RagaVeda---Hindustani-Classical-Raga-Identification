@@ -57,6 +57,7 @@ def plot_spectrogram(spectrogram, sr, hop_length):
     plt.tight_layout()
     plt.show()
 
+
 #Feature extractor using mfcc
 def extract_mfcc_feature_vector(audio_file, sr):
     mfccs = librosa.feature.mfcc(y=audio_file, sr=sr, n_mfcc=40, n_fft=2048, hop_length=512)
