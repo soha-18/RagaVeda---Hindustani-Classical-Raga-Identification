@@ -169,7 +169,6 @@ if __name__ == "__main__":
             print("\nDataset created successfully!")
             save_option = input("\nDo you want to save this dataset to a CSV file? (yes/no): ").lower()
             if save_option == 'yes':
-                # file_name = input("Enter filename: ")
                 try:
                     dataset.to_csv(file_name, index=False)
                     print(f"Dataset saved to {file_name}")
