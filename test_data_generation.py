@@ -24,7 +24,6 @@ def modify_dataset(dataset: pd.DataFrame):
     return dataset
 
 def modify_columns(dataset: pd.DataFrame, prefix: str = "mfcc_") -> pd.DataFrame:
-#def modify_columns(dataset, prefix: str = "mfcc_"):
     new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
     dataset.columns = new_columns + [dataset.columns[-1]]
     return dataset
