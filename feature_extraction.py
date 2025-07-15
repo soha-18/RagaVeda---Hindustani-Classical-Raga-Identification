@@ -104,8 +104,8 @@ def create_mfcc_dataset_with_audio_aug():
                     a = audio_augmentation()
                     y_stretched = a.time_stretch(y)
                     y_shifted = a.pitch_shift(y_stretched,sr)
-                    aug_audio = a.noise_addition(y_shifted)
-                    feature_vector = extract_mfcc_feature_vector(aug_audio, sr)
+                    #aug_audio = a.noise_addition(y_shifted)
+                    feature_vector = extract_mfcc_feature_vector(y_shifted, sr)
                     features.append(feature_vector)
                     ragas.append(ragas_folder)
                 except Exception as e:
