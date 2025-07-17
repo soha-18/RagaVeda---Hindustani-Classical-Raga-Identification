@@ -41,13 +41,13 @@ for root, dirs, files in os.walk(audio_folder):
                     y_stretched = ad.time_stretch(y)
                     y_shifted = ad.pitch_shift(y_stretched, sr)
                     #aug_audio = ad.noise_addition(y_shifted)
-                    mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
+                    #mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
                     feature_vector_audio_aug = extract_mfcc_feature_vector(y_shifted, sr)
-                    feature_vector_mel = extract_features_mel(y, sr)
-                    mfcc_test_features.append(mfcc_feature_vector)
+                    #feature_vector_mel = extract_features_mel(y, sr)
+                    #mfcc_test_features.append(mfcc_feature_vector)
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
-                    mel_test_features.append([feature_vector_mel, labels])
+                    #mel_test_features.append([feature_vector_mel, labels])
 
 
                 except Exception as e:
@@ -55,15 +55,15 @@ for root, dirs, files in os.walk(audio_folder):
 
 ## Convert the lists to a Pandas DataFrame
 #Mel spectogram test dataset
-test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
-test_mel_dataset = modify_dataset(test_mel_dataset)
+# test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
+# test_mel_dataset = modify_dataset(test_mel_dataset)
 
-#MFCC test dataset
-test_feature_df = pd.DataFrame(mfcc_test_features)
+# MFCC test dataset
+# test_feature_df = pd.DataFrame(mfcc_test_features)
 test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
-test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
-test_dataset = modify_columns(test_dataset)
-test_dataset = modify_dataset(test_dataset)
+# test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
+# test_dataset = modify_columns(test_dataset)
+# test_dataset = modify_dataset(test_dataset)
 
 #MFCC audio augmented test dataset
 test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
@@ -73,8 +73,8 @@ test_audio_aug_feature_dataset = modify_dataset(test_audio_aug_feature_dataset)
 print("\nDataset created successfully!")
 
 
-test_dataset.to_csv("mfcc_test_dataset.csv", index=False)
-test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
+# test_dataset.to_csv("mfcc_test_dataset.csv", index=False)
+# test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
 test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset_aug.csv", index=False)
 
 
