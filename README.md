@@ -18,7 +18,7 @@ In the later phase we will incorporate more hindustani ragas.
 ## Model Description
 This project comprises model structure based on two specific audio characteristics.
 - MFCC coefficient
-- Mel Spectogram feature
+- Mel Spectogram 
 
 
 In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
