@@ -13,4 +13,7 @@ In the initial phase we are taregting on the below Ragas to develop our CNN mode
 - Sarang
 - Yaman
 
-  In the later phase, we want to develop another model using the spectrogram features to make a performance comparison between two approaches.
+In the later phase we will incorporate more hindustani ragas.
+
+## Model Description
+
