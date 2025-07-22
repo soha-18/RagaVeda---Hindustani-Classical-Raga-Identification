@@ -16,4 +16,8 @@ In the initial phase we are taregting on the below Ragas to develop our CNN mode
 In the later phase we will incorporate more hindustani ragas.
 
 ## Model Description
+This project comprises model structure based on two specific audio characteristics.
+- MFCC coefficient
+- Mel Spectogram feature
+In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
 
