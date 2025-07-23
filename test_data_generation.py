@@ -40,14 +40,14 @@ for root, dirs, files in os.walk(audio_folder):
                     ad = audio_augmentation()
                     y_stretched = ad.time_stretch(y)
                     y_shifted = ad.pitch_shift(y_stretched, sr)
-                    #aug_audio = ad.noise_addition(y_shifted)
+                    aug_audio = ad.noise_addition(y_shifted)
                     mfcc_feature_vector = extract_mfcc_feature_vector(y, sr)
                     feature_vector_audio_aug = extract_mfcc_feature_vector(y_shifted, sr)
-                    #feature_vector_mel = extract_features_mel(y, sr)
+                    feature_vector_mel = extract_features_mel(y, sr)
                     mfcc_test_features.append(mfcc_feature_vector)
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
-                    #mel_test_features.append([feature_vector_mel, labels])
+                    mel_test_features.append([feature_vector_mel, labels])
 
 
                 except Exception as e:
