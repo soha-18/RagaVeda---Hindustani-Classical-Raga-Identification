@@ -55,8 +55,8 @@ for root, dirs, files in os.walk(audio_folder):
 
 ## Convert the lists to a Pandas DataFrame
 #Mel spectogram test dataset
-# test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
-# test_mel_dataset = modify_dataset(test_mel_dataset)
+test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
+test_mel_dataset = modify_dataset(test_mel_dataset)
 
 # MFCC test dataset
 test_feature_df = pd.DataFrame(mfcc_test_features)
