@@ -23,7 +23,7 @@ def modify_dataset(dataset: pd.DataFrame):
         print("Warning: Required column not found in the dataset. Skipping modifications.")
     return dataset
 
-def modify_columns(dataset: pd.DataFrame, prefix: str = "mfcc_") -> pd.DataFrame:
+def modify_columns(dataset: pd.DataFrame, prefix: str) -> pd.DataFrame:
     new_columns = [prefix + str(col) for col in dataset.columns[:-1]]
     dataset.columns = new_columns + [dataset.columns[-1]]
     return dataset
@@ -47,7 +47,7 @@ for root, dirs, files in os.walk(audio_folder):
                     mfcc_test_features.append(mfcc_feature_vector)
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
-                    mel_test_features.append([feature_vector_mel, labels])
+                    mel_test_features.append([feature_vector_mel,labels])
 
 
                 except Exception as e:
@@ -57,6 +57,7 @@ for root, dirs, files in os.walk(audio_folder):
 #Mel spectogram test dataset
 test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset = modify_dataset(test_mel_dataset)
+
 
 # # MFCC test dataset
 # test_feature_df = pd.DataFrame(mfcc_test_features)

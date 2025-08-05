@@ -131,7 +131,6 @@ def create_melSpectogram_dataset():
                    y, sr = librosa.load(audio_path, duration=30)
                    feature_vector = extract_features_mel(y, sr)
                    mel_features.append([feature_vector, ragas_folder])
-
                except Exception as e:
                    print(f"Error processing {filename}: {e}")
 
