@@ -7,7 +7,6 @@ with open('mel_dataset.csv', 'r') as f:
     for line in f:
         # Split the line by the comma
         parts = line.strip().split(',')
-        # The first part is the features, the second is the label
         features_str = parts[0].strip()
         #label = parts[1].strip()
 
