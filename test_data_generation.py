@@ -78,6 +78,5 @@ print("\nDataset created successfully!")
 #test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
 # test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset_aug.csv", index=False)
 mel_array = np.array(test_mel_dataset)
-print(len(mel_array[23][0]))
 
 
