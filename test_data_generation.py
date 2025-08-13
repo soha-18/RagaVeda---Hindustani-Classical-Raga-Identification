@@ -83,7 +83,10 @@ features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
 
 # 2. Convert to NumPy arrays
-X = np.stack(features)
-y = np.array(labels)
+# X = np.array(features)
+# y = np.array(labels)
+
+np.savetxt('mel_array.txt', mel_array, delimiter=',')
+
 
 
