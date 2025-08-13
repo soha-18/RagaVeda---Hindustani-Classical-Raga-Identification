@@ -83,7 +83,7 @@ features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
 
 # 2. Convert to NumPy arrays
-X = np.stack(features) # Stacks the 1D arrays into a 2D array
+X = np.stack(features)
 y = np.array(labels)
 
 
