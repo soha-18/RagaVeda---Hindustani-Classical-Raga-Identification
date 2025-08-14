@@ -48,8 +48,6 @@ for root, dirs, files in os.walk(audio_folder):
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
                     mel_test_features.append([feature_vector_mel,labels])
-
-
                 except Exception as e:
                     print(f"Error processing {file}: {e}")
 
