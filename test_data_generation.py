@@ -79,7 +79,7 @@ mel_array = np.array(test_mel_dataset)
 # 1. Separate features and labels
 features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
-
+print(features)
 # 2. Convert to NumPy arrays
 # X = np.array(features)
 # y = np.array(labels)
