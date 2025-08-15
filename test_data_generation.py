@@ -88,7 +88,7 @@ labels = [item[1] for item in mel_array]
 X = np.array(features, dtype=object)
 y = np.array(labels)
 
-#np.savetxt('mel_array.txt', mel_array, delimiter=',')
+np.savez('mel_features.npz', arr1=X, arr2=y)
 
 
 
