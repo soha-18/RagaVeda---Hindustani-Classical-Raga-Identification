@@ -79,10 +79,13 @@ mel_array = np.array(test_mel_dataset)
 # 1. Separate features and labels
 features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
+max_len = max(len(row) for row in features)
+# Pad the shorter lists with zeros to make equal length
+padded_features = [row + [0] * (max_len - len(row)) for row in features]
 #print(features)
 # 2. Convert to NumPy arrays
-# X = np.array(features)
-# y = np.array(labels)
+X = np.array(padded_features)
+y = np.array(labels)
 
 #np.savetxt('mel_array.txt', mel_array, delimiter=',')
 
