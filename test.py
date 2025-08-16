@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 import re
 
 # data = []
@@ -22,7 +23,7 @@ import re
 #             print(f"Skipping malformed line: {line}")
 
 # Load the .npz file
-data = np.load('mel_features.npz')
+data = np.load('mel_features.npz', allow_pickle=True)
 
 # Access the arrays by their key names
 X_loaded = data['arr1']
@@ -32,7 +33,11 @@ y_loaded = data['arr2']
 print("Shape of loaded X:", X_loaded.shape)
 print("Shape of loaded y:", y_loaded.shape)
 
+data.close()
 
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_loaded)
+print("Shape of scaled X:", X_scaled.shape)
 # df = pd.DataFrame(data)
 # #print(df)
 # X = df['features'].values
