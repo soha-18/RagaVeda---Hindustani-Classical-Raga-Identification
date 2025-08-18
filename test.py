@@ -35,11 +35,11 @@ print("Shape of loaded X:", X_loaded.shape)
 print("Shape of loaded y:", y_loaded.shape)
 
 data.close()
-numerical_features = df.select_dtypes(include=['float64', 'int64']).columns
-categorical_features = df.select_dtypes(include=['object']).columns
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X_loaded)
-print("Shape of scaled X:", X_scaled.shape)
+print(X_loaded.dtype)
+
+# scaler = StandardScaler()
+# X_scaled = scaler.fit_transform(X_loaded)
+# print("Shape of scaled X:", X_scaled.shape)
 # df = pd.DataFrame(data)
 # #print(df)
 # X = df['features'].values
