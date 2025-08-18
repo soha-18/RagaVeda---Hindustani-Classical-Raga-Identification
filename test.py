@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler
 import re
 
 # data = []
@@ -36,7 +35,8 @@ print("Shape of loaded y:", y_loaded.shape)
 
 data.close()
 print(X_loaded.dtype)
-
+X_loaded = np.vstack(X_loaded)
+X_loaded = X_loaded.astype(float)
 # scaler = StandardScaler()
 # X_scaled = scaler.fit_transform(X_loaded)
 # print("Shape of scaled X:", X_scaled.shape)
