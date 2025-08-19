@@ -88,6 +88,8 @@ labels = [item[1] for item in mel_array]
 X = np.array(features, dtype=object)
 y = np.array(labels)
 
+combined_array = np.dstack((X, y[:, None]))[0]
+
 
 
 
