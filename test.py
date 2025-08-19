@@ -35,11 +35,7 @@ print("Shape of loaded y:", y_loaded.shape)
 
 data.close()
 print(X_loaded.dtype)
-padded_arrays = []
-for arr in X_loaded:
-    padded_arr = np.pad(arr, ((0, 0), (0, 165375 - arr.shape[1])), 'constant', constant_values=0)
-    padded_arrays.append(padded_arr)
-X_loaded = np.vstack(padded_arrays)
+X_loaded = np.vstack(X_loaded)
 X_loaded = X_loaded.astype(float)
 # scaler = StandardScaler()
 # X_scaled = scaler.fit_transform(X_loaded)
