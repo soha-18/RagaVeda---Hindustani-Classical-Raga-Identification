@@ -83,7 +83,6 @@ features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
 #print(features)
 # 2. Convert to NumPy arrays
-#X = np.array(padded_features)
 X = np.array(features, dtype=object)
 y = np.array(labels)
 
