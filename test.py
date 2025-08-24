@@ -16,8 +16,8 @@ with open('mel_dataset.csv', 'r') as f:
             features = [float(num) for num in numbers]
             features = np.array(features)
             # Clean up the string to make it a valid list representation
-            #features_str = features_str.replace('...', '').replace('[', '').replace(']', '')
-            #features = np.fromstring(features_str, sep=' ')
+            features_str = features_str.replace('...', '').replace('[', '').replace(']', '')
+            features = np.fromstring(features_str, sep=' ')
             data.append({'features': features})  #, 'label': label})
         except ValueError:
             print(f"Skipping malformed line: {line}")
