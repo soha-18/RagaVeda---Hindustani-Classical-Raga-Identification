@@ -86,6 +86,9 @@ labels = [item[1] for item in mel_array]
 X = np.array(features, dtype=object)
 y = np.array(labels)
 
+print(X.shape)
+row_sizes = [len(row) for row in X]
+print(f"The number of elements in each row is: {row_sizes}")
 
 
 
