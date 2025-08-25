@@ -86,9 +86,24 @@ labels = [item[1] for item in mel_array]
 X = np.array(features, dtype=object)
 y = np.array(labels)
 
-print(X.shape)
-row_sizes = [len(row) for row in X]
-print(f"The number of elements in each row is: {row_sizes}")
+#print(X.shape)
+#row_sizes = [len(row) for row in X]
+#print(f"The number of elements in each row is: {row_sizes}")
+
+# Find the maximum length of the arrays in X
+max_length = max(len(row) for row in X)
+padded_X = np.zeros((len(X), max_length), dtype=np.float32)
+
+for i, row in enumerate(X):
+    padded_X[i, :len(row)] = row
+
+df = pd.DataFrame(padded_X)
+labels_df = pd.DataFrame({'Ragas': y})
+mel_dataset_1 = pd.concat([df, labels_df], axis=1)
+df.to_csv('padded_data.csv', index=False)
+mel_dataset_1.to_csv('mel_dataset_1.csv', index=False)
+print(f"The shape of the padded data is: {df.shape}")
+print(f"The shape of the padded data is: {mel_dataset_1.shape}")
 
 
 
