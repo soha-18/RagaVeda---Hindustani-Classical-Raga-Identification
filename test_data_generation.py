@@ -77,7 +77,6 @@ print("\nDataset created successfully!")
 # test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset_aug.csv", index=False)
 mel_array = np.array(test_mel_dataset)
 
-
 # 1. Separate features and labels
 features = [item[0] for item in mel_array]
 labels = [item[1] for item in mel_array]
@@ -99,7 +98,8 @@ for i, row in enumerate(X):
 df = pd.DataFrame(padded_X)
 labels_df = pd.DataFrame({'Ragas': y})
 mel_dataset_1 = pd.concat([df, labels_df], axis=1)
-mel_dataset_1.to_csv('mel_dataset_1.csv', index=False)
+mel_dataset_1.to_parquet('mel_dataset.parquet')
+#mel_dataset_1.to_csv('mel_dataset_1.csv', index=False)
 # print(f"The shape of the padded data is: {df.shape}")
 # print(f"The shape of the padded data is: {mel_dataset_1.shape}")
 
