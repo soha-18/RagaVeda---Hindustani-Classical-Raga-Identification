@@ -2,6 +2,8 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 from feature_extraction import create_mfcc_dataset, extract_mfcc_feature_vector, extract_features_mel, audio_augmentation
 
 mfcc_test_features = []
