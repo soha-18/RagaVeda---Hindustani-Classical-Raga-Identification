@@ -60,16 +60,16 @@ test_mel_dataset = modify_dataset(test_mel_dataset)
 
 
 # # MFCC test dataset
-# test_feature_df = pd.DataFrame(mfcc_test_features)
-# test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
-# test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
-# test_dataset = modify_columns(test_dataset)
-# test_dataset = modify_dataset(test_dataset)
+test_feature_df = pd.DataFrame(mfcc_test_features)
+test_ragas_df = pd.DataFrame({'Ragas': test_ragas})
+test_dataset = pd.concat([test_feature_df, test_ragas_df], axis=1)
+test_dataset = modify_columns(test_dataset, "mfcc_")
+test_dataset = modify_dataset(test_dataset)
 
 # #MFCC audio augmented test dataset
 # test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
 # test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
-# test_audio_aug_feature_dataset = modify_columns(test_audio_aug_feature_dataset)
+# test_audio_aug_feature_dataset = modify_columns(test_audio_aug_feature_dataset, "mfcc_")
 # test_audio_aug_feature_dataset = modify_dataset(test_audio_aug_feature_dataset)
 print("\nDataset created successfully!")
 
