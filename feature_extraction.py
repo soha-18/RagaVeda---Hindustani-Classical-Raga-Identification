@@ -130,11 +130,18 @@ def create_melSpectogram_dataset():
                try:
                    y, sr = librosa.load(audio_path, duration=30)
                    feature_vector = extract_features_mel(y, sr)
-                   mel_features.append([feature_vector, ragas_folder])
+                   mel_features.append(feature_vector)
+                   ragas.append(ragas_folder)
                except Exception as e:
                    print(f"Error processing {filename}: {e}")
 
-    mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
+    #mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
+    feature_df = pd.DataFrame(mel_features)
+    ragas_df = pd.DataFrame({'Ragas': ragas})
+    mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
+    prefix = "mel_"
+    new_columns = [prefix + str(col) for col in mel_dataset.columns[:-1]]
+    mel_dataset.columns = new_columns + [mel_dataset.columns[-1]]
     return mel_dataset
 
 if __name__ == "__main__":
