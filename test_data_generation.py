@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-from feature_extraction import create_mfcc_dataset, extract_mfcc_feature_vector, extract_features_mel, audio_augmentation
+from feature_extraction import create_mfcc_dataset, extract_mfcc_feature_vector, extract_features_mel, audio_augmentation, preprocess_dataset
 
 mfcc_test_features = []
 mfcc_test_audio_aug_features = []
@@ -49,15 +49,18 @@ for root, dirs, files in os.walk(audio_folder):
                     mfcc_test_features.append(mfcc_feature_vector)
                     mfcc_test_audio_aug_features.append(feature_vector_audio_aug)
                     test_ragas.append(labels)
-                    mel_test_features.append([feature_vector_mel,labels])
+                    mel_test_features.append(feature_vector_mel)
                 except Exception as e:
                     print(f"Error processing {file}: {e}")
 
 ## Convert the lists to a Pandas DataFrame
 #Mel spectogram test dataset
-test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
+mel_feature_df = preprocess_dataset(mel_test_features)
+test_mel_ragas_df = pd.DataFrame({'Ragas': test_ragas})
+test_mel_dataset = pd.concat([mel_feature_df, test_mel_ragas_df], axis=1)
+test_mel_dataset = modify_columns(test_mel_dataset, "mel_")
+# test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset = modify_dataset(test_mel_dataset)
-
 
 # # MFCC test dataset
 test_feature_df = pd.DataFrame(mfcc_test_features)
@@ -67,42 +70,14 @@ test_dataset = modify_columns(test_dataset, "mfcc_")
 test_dataset = modify_dataset(test_dataset)
 
 # #MFCC audio augmented test dataset
-# test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
-# test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
-# test_audio_aug_feature_dataset = modify_columns(test_audio_aug_feature_dataset, "mfcc_")
-# test_audio_aug_feature_dataset = modify_dataset(test_audio_aug_feature_dataset)
+test_audio_aug_feature_df = pd.DataFrame(mfcc_test_audio_aug_features)
+test_audio_aug_feature_dataset = pd.concat([test_audio_aug_feature_df, test_ragas_df], axis=1)
+test_audio_aug_feature_dataset = modify_columns(test_audio_aug_feature_dataset, "mfcc_")
+test_audio_aug_feature_dataset = modify_dataset(test_audio_aug_feature_dataset)
 print("\nDataset created successfully!")
 
 
 # test_dataset.to_csv("mfcc_test_dataset.csv", index=False)
-#test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
+test_mel_dataset.to_csv("mel_test_dataset.csv", index=False)
 # test_audio_aug_feature_dataset.to_csv("mfcc_test_dataset_aug.csv", index=False)
-mel_array = np.array(test_mel_dataset)
-
-# 1. Separate features and labels
-features = [item[0] for item in mel_array]
-labels = [item[1] for item in mel_array]
-#print(features)
-# 2. Convert to NumPy arrays
-X = np.array(features, dtype=object)
-y = np.array(labels)
-
-print(X.shape)
-row_sizes = [len(row) for row in X]
-print(f"The number of elements in each row is: {row_sizes}")
-
-max_length = max(len(row) for row in X)
-padded_X = np.zeros((len(X), max_length), dtype=np.float32)
-
-for i, row in enumerate(X):
-    padded_X[i, :len(row)] = row
-
-df = pd.DataFrame(padded_X)
-labels_df = pd.DataFrame({'Ragas': y})
-mel_dataset_1 = pd.concat([df, labels_df], axis=1)
-#mel_dataset_1.to_parquet('mel_dataset.parquet')
-#mel_dataset_1.to_csv('mel_dataset_1.csv', index=False)
-# print(f"The shape of the padded data is: {df.shape}")
-# print(f"The shape of the padded data is: {mel_dataset_1.shape}")
-
 
