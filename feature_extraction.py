@@ -46,6 +46,15 @@ def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
     #mel_spec_db_padded = pad_sequences([mel_spec_db], padding='post', maxlen=max_pad_len, dtype='float32')[0]
     return flattened_mel_spec
 
+def preprocess_dataset(feature_list):
+    X = np.array(feature_list, dtype=object)
+    max_length = max(len(row) for row in X)
+    padded_X = np.zeros((len(X), max_length), dtype=np.float32)
+    for i, row in enumerate(X):
+        padded_X[i, :len(row)] = row
+    df = pd.DataFrame(padded_X)
+    return df
+
 def plot_spectrogram(spectrogram, sr, hop_length):
     plt.figure(figsize=(10, 4))
     librosa.display.specshow(librosa.amplitude_to_db(spectrogram, ref=np.max),
@@ -136,7 +145,8 @@ def create_melSpectogram_dataset():
                    print(f"Error processing {filename}: {e}")
 
     #mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
-    feature_df = pd.DataFrame(mel_features)
+    #feature_df = pd.DataFrame(mel_features)
+    feature_df = preprocess_dataset(mel_features)
     ragas_df = pd.DataFrame({'Ragas': ragas})
     mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
     prefix = "mel_"

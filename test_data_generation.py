@@ -100,7 +100,7 @@ for i, row in enumerate(X):
 df = pd.DataFrame(padded_X)
 labels_df = pd.DataFrame({'Ragas': y})
 mel_dataset_1 = pd.concat([df, labels_df], axis=1)
-mel_dataset_1.to_parquet('mel_dataset.parquet')
+#mel_dataset_1.to_parquet('mel_dataset.parquet')
 #mel_dataset_1.to_csv('mel_dataset_1.csv', index=False)
 # print(f"The shape of the padded data is: {df.shape}")
 # print(f"The shape of the padded data is: {mel_dataset_1.shape}")
