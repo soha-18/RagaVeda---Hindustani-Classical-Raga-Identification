@@ -42,8 +42,6 @@ def extract_features_mel(file, sr, n_mels=128, max_pad_len=174):
     mel_spec = librosa.feature.melspectrogram(y=file, sr=sr, n_fft=2048, hop_length=512, n_mels=n_mels)
     mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
     flattened_mel_spec = mel_spec_db.flatten()
-    #mel_spec_db = mel_spec_db.T
-    #mel_spec_db_padded = pad_sequences([mel_spec_db], padding='post', maxlen=max_pad_len, dtype='float32')[0]
     return flattened_mel_spec
 
 def preprocess_dataset(feature_list):
@@ -144,8 +142,6 @@ def create_melSpectogram_dataset():
                except Exception as e:
                    print(f"Error processing {filename}: {e}")
 
-    #mel_dataset = pd.DataFrame(mel_features, columns = ("Mel_Features", "Ragas"))
-    #feature_df = pd.DataFrame(mel_features)
     feature_df = preprocess_dataset(mel_features)
     ragas_df = pd.DataFrame({'Ragas': ragas})
     mel_dataset = pd.concat([feature_df, ragas_df], axis=1)
