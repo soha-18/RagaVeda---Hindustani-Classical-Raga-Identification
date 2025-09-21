@@ -2,8 +2,6 @@ import librosa
 import numpy as np
 import os
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
 from feature_extraction import create_mfcc_dataset, extract_mfcc_feature_vector, extract_features_mel, audio_augmentation, preprocess_dataset
 
 mfcc_test_features = []
@@ -59,7 +57,6 @@ mel_feature_df = preprocess_dataset(mel_test_features)
 test_mel_ragas_df = pd.DataFrame({'Ragas': test_ragas})
 test_mel_dataset = pd.concat([mel_feature_df, test_mel_ragas_df], axis=1)
 test_mel_dataset = modify_columns(test_mel_dataset, "mel_")
-# test_mel_dataset = pd.DataFrame(mel_test_features, columns = ("Mel_Features", "Ragas"))
 test_mel_dataset = modify_dataset(test_mel_dataset)
 
 # # MFCC test dataset
