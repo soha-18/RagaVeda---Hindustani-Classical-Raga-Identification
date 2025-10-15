@@ -20,6 +20,7 @@ This project comprises model structure based on two specific audio characteristi
 - MFCC coefficient
 - Mel Spectogram 
 
+We will preprocess our audio data using MFCC coefficients and split into training and validation dataset for our 2D CNN model.
 
 In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
 
