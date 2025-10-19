@@ -13,7 +13,7 @@ In the initial phase we are taregting on the below Ragas to develop our CNN mode
 - Sarang
 - Yaman
 
-In the later phase we will incorporate more hindustani ragas.
+In the later phase we will incorporate more hindustani ragas to increase flexibility and usability.
 
 ## Model Description
 This project comprises model structure based on two specific audio characteristics.
