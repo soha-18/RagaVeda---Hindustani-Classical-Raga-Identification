@@ -24,7 +24,18 @@ This project comprises model structure based on two specific audio characteristi
 - Mel Spectogram 
 
 We preprocess our audio data using MFCC coefficients and split into training and validation dataset for our 2D CNN model.
-
-
 In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
 
+## Project Workflow
+Raw Audio (.wav) -> Preprocessing (Framing) -> MFCC Extraction -> Dataset Creation -> Train/Test Split -> CNN Model Training -> Model Evaluation -> Raga Prediction
+
+1. Data Collection:Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
+2. Audio Preprocessing:Read the audio files using librosa.Standardize: Convert all audio to a uniform format (e.g., mono channel, 22.05kHz sample rate) to ensure consistency.Segment: Divide the long audio recordings into smaller, fixed-length segments (e.g., 3-5 seconds). This increases the size of the training dataset and captures local features.
+3. Feature Extraction:For each audio segment, compute the Mel-Frequency Cepstral Coefficients (MFCCs).This process converts the complex audio signal into a 2D representation (typically n_mfccs x n_frames, e.g., 40x128). This 2D array is treated as an "image" for the CNN.
+4. Dataset Preparation:Store the extracted MFCCs (the features) and their corresponding raga labels (the targets).Save this structured data as .npy files or dataframes for easy loading during training.
+5. Data Splitting:Divide the complete dataset into Training Set (e.g., 80%) for training the CNN model and Validation Set (e.g., 10%) to monitor training progress, tune hyperparameters, and prevent overfitting.
+6. Model Architecture (CNN):Define the Convolutional Neural Network (CNN) architecture using a framework like TensorFlow/Keras.Conv2D layers (to detect patterns in the MFCCs).MaxPooling2D layers (to reduce dimensionality).Dropout layers (to prevent overfitting).A Flatten layer (to transition from 2D feature maps to a 1D vector).
+Dense (fully connected) layers for classification.A final Dense output layer with a softmax activation function to output a probability for each raga class.
+
+7. Model Training:
+Compile the model, specifying an optimizer (e.g., Adam), a loss function (e.g., sparse_categorical_crossentropy or categorical_crossentropy), and evaluation metrics (e.g., accuracy).Train the model by "fitting" it to the training dataset, using the validation set to check for improvement after each epoch.
