@@ -27,7 +27,16 @@ We preprocess our audio data using MFCC coefficients and split into training and
 In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
 
 ## Project Workflow
-Raw Audio (.wav) -> Preprocessing (Framing) -> MFCC Extraction -> Dataset Creation -> Train/Test Split -> CNN Model Training -> Model Evaluation -> Raga Prediction
+```mermaid
+graph TD
+    A[Raw Audio Files (.wav)] --> B(Pre-processing: Segment & Standardize);
+    B --> C(Feature Extraction: MFCCs);
+    C --> D{Dataset (MFCCs + Labels)};
+    D --> E[Train/Test Split];
+    E --> F(Train CNN Model);
+    F --> G(Evaluate Model);
+    G --> H[Classified Raga];
+```
 
 1. Data Collection:Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
 2. Audio Preprocessing:Read the audio files using librosa.Standardize: Convert all audio to a uniform format (e.g., mono channel, 22.05kHz sample rate) to ensure consistency.Segment: Divide the long audio recordings into smaller, fixed-length segments (e.g., 3-5 seconds). This increases the size of the training dataset and captures local features.
