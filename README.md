@@ -39,10 +39,10 @@ graph TD
 ```
 
 1. Data Collection:Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
-2. Audio Preprocessing:Read the audio files using librosa.Standardize: Convert all audio to a uniform format (e.g., mono channel, 22.05kHz sample rate) to ensure consistency.Segment: Divide the long audio recordings into smaller, fixed-length segments (e.g., 3-5 seconds). This increases the size of the training dataset and captures local features.
-3. Feature Extraction:For each audio segment, compute the Mel-Frequency Cepstral Coefficients (MFCCs).This process converts the complex audio signal into a 2D representation (typically n_mfccs x n_frames, e.g., 40x128). This 2D array is treated as an "image" for the CNN.
-4. Dataset Preparation:Store the extracted MFCCs (the features) and their corresponding raga labels (the targets).Save this structured data as .npy files or dataframes for easy loading during training.
-5. Data Splitting:Divide the complete dataset into Training Set (e.g., 80%) for training the CNN model and Validation Set (e.g., 10%) to monitor training progress, tune hyperparameters, and prevent overfitting.
+2. Audio Preprocessing:Read the audio files using librosa and converts a list of variable-length feature sequences into a uniform, zero-padded Pandas DataFrame, making it suitable for machine learning inputs.
+3. Feature Extraction:For each audio segment, extracts MFCCs along with their first (delta) and second (delta-delta) derivatives from an audio file, then computes their mean over time to produce a single, representative feature vector.This converts the complex audio signal into a 2D representation.
+4. Dataset Preparation:Saving the extracted MFCCs (the features) and their corresponding raga labels (the targets) as csv file for easy loading during training.
+5. Data Splitting:The complete dataset has been divided into Training Set (e.g., 80%) for training the CNN model and Validation Set (e.g., 10%) to monitor training progress, tune hyperparameters, and prevent overfitting.
 6. Model Architecture (CNN):Define the Convolutional Neural Network (CNN) architecture using a framework like TensorFlow/Keras.Conv2D layers (to detect patterns in the MFCCs).MaxPooling2D layers (to reduce dimensionality).Dropout layers (to prevent overfitting).A Flatten layer (to transition from 2D feature maps to a 1D vector).
 Dense (fully connected) layers for classification.A final Dense output layer with a softmax activation function to output a probability for each raga class.
 
