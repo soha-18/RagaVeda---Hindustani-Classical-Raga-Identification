@@ -20,7 +20,7 @@ In the later phase we will incorporate more hindustani ragas from hugging face t
 
 ## Model Description
 This project comprises model structure based on Mel spectogram characteristics.We extract the spectrogram characterictics for each audio signals and create a dataset.
-We preprocess our audio data using MFCC coefficients and split into training and validation dataset for our 2D CNN model.
+We then preprocess our dataset with MFCC coefficients and split into training and validation dataset for our 2D CNN model.
 In addition to that, this project consists of a third structure with some audio augmented features using the MFCC coefficient to compare the performance with the MFCC model.
 
 ## Project Workflow
