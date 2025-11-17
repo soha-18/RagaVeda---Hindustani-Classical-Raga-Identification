@@ -16,8 +16,6 @@ In the initial phase we are taregting on some of the base Ragas to develop our C
 - Sarang
 - Yaman
 
-In the later phase we will incorporate more hindustani ragas from hugging face to increase its flexibility and usability. It also helps to assert the accuracy of the model to be able to detect the ragas.
-
 ## Model Description
 This project comprises model structure based on Mel spectogram characteristics.We extract the spectrogram characterictics for each audio signals and create a dataset.
 We then preprocess our dataset with MFCC coefficients and split into training and validation dataset to train our 2D CNN model.
