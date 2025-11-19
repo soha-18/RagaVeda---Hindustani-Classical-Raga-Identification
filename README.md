@@ -29,3 +29,5 @@ This project further extends to a third structure with the addition of some audi
 5. Data Splitting: The complete dataset has been divided into Training Set (e.g., 80%) for training the CNN model and Validation Set (e.g., 10%) to monitor training progress, tune hyperparameters, and prevent overfitting.
 6. Model Architecture(CNN): In this project, we created a Convolutional Neural Network (CNN) architecture.MaxPooling2D layers (to reduce dimensionality).Dropout layers (to prevent overfitting).A Flatten layer (to transition from 2D feature maps to a 1D vector).Dense (fully connected) layers for classification.A final Dense output layer with a softmax activation function to output a probability for each raga class.
 7. Model Training: The model has been compiled using Adam optimizer, a loss function (categorical_crossentropy), and evaluation metrics.The model has been trained by "fitting" it to the training dataset, using the validation set to check for improvement after each epoch.
+
+<img width="700" height="607" alt="mfcc_Confusion_matrix" src="https://github.com/user-attachments/assets/0fd82a70-5f75-4ad4-b42e-f8f25fd253ab" />
