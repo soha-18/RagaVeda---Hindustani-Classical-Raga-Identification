@@ -37,3 +37,6 @@ This confusion matrix visualizes the performance of our Raga classification mode
 ### Key Observation
  - High Overall Accuracy: The model performs extremely well for most of the Ragas. The strong, dark diagonal line shows that the vast majority of predictions were correct.
  - Perfectly Classified Ragas: The model achieved 100% accuracy (10 out of 10 correct samples) for Bhairavi, Bhoopali, Darbari, Sarang, and Yaman.
+ - Minor Confusions:Asavari: 9/10 correct (1 sample was misclassified as 'Bhoopali').
+  :Bageshree: 11/12 correct (1 sample was misclassified as 'Bhoopali').
+  :Malkauns: 9/10 correct (1 sample was misclassified as 'Bageshree').
