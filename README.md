@@ -32,4 +32,4 @@ This project further extends to a third structure with the addition of some audi
 
 ## Model Performance: Confusion Matrix
 <img width="700" height="607" alt="mfcc_Confusion_matrix" src="https://github.com/user-attachments/assets/0fd82a70-5f75-4ad4-b42e-f8f25fd253ab" />
-
+This confusion matrix visualizes the performance of our Raga classification model, which was trained using MFCC (Mel-Frequency Cepstral Coefficients) as features.
