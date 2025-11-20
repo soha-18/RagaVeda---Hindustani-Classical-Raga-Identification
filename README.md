@@ -41,3 +41,5 @@ This confusion matrix visualizes the performance of our Raga classification mode
   1. Asavari: 9/10 correct (1 sample was misclassified as 'Bhoopali').
   2. Bageshree: 11/12 correct (1 sample was misclassified as 'Bhoopali').
   3. Malkauns: 9/10 correct (1 sample was misclassified as 'Bageshree').
+ - Major Point of Failure: 'Bhairava'
+ The model's primary weakness is with the 'Bhairava' raga.It failed to correctly identify a single sample of 'Bhairava' (0 out of 12 correct). All 12 'Bhairava' samples were misclassified as other ragas, most frequently as 'Yaman' (5 samples), 'Bhairavi' (2 samples), 'Bhoopali' (2 samples), and 'Malkauns' (2 samples).
