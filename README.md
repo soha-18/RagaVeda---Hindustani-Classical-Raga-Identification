@@ -1,4 +1,4 @@
-ki# Hindustani-Classical-Raga-Identification
+# Hindustani-Classical-Raga-Identification
 
 This project focuses on identification and classification of hindustani classical ragas using Machine Learning techniques. 
 The Mel-Frequency Cepstral Coefficients (MFCCs) will be extracted from various audio recordings, which will then be used to train and evaluate CNN to accurately identify and distinguish between different ragas.
