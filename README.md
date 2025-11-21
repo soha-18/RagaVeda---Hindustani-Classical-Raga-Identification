@@ -2,7 +2,7 @@ ki# Hindustani-Classical-Raga-Identification
 
 This project focuses on identification and classification of hindustani classical ragas using Machine Learning techniques. 
 The Mel-Frequency Cepstral Coefficients (MFCCs) will be extracted from various audio recordings, which will then be used to train and evaluate CNN to accurately identify and distinguish between different ragas.
-MFCCs are highly effective in representing the timbral and spectral characteristics of sound. It emphasizes the parts of the audio signal that are most relevant for understanding human language, while filtering out less important information like background noise or pitch variations.
+MFCCs are highly effective in representing the timbral and spectral characteristics of sound. It emphasizes the parts of the audio signal that are most relevant for understanding human language, while filtering out less important information like background noise or pitch variations. Therefore, MFCC features represents a compact and effective way to represent sound that mimics how humans perceive speech
 The goal is to develop a robust system for raga recognition, which has its potential applications in music information retrieval, music education, and cultural preservation.
 
 In the initial phase we are taregting on some of the base Ragas to develop our CNN model.
