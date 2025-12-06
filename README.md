@@ -27,10 +27,10 @@ This project further extends to a third structure with the addition of some audi
 ```mermaid
 graph TD;
     A[Data Collection:Audio Recordings (.wav, .mp3)] --> B;
-    B[Audio Preprocessing:Read Audio (librosa) & Zero-Padded DataFrame] --> C;
-    C[Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
-    D[Dataset Preparation: Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
-    E{Data Splitting: Split Dataset} --> E1[Training Set (80%)];
+    B[Audio Preprocessing:<br>Read Audio (librosa) & Zero-Padded DataFrame] --> C;
+    C[Feature Extraction:<br>Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
+    D[Dataset Preparation:<br>Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
+    E{Data Splitting:Split Dataset} --> E1[Training Set (80%)];
     E --> E2[Validation Set (10%)];
     E1 --> F;
     subgraph CNN Model Architecture
@@ -42,8 +42,8 @@ graph TD;
         F5 --> F6[Output Layer: Dense + Softmax];
     end
     F6 --> G;
-    G[Model Training: Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
-    H[Model Training: Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
+    G[Model Training:<br>Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
+    H[Model Training:<br>Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
 ```
     style A fill:#f9f,stroke:#333
     style I fill:#ccf,stroke:#333
