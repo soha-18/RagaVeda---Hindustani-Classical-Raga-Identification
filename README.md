@@ -24,16 +24,16 @@ This project further extends to a third structure with the addition of some audi
 
 ## Project Workflow
 
-graph TD
-    A[1. Data Collection: Raga Audio Recordings (.wav, .mp3)] --> B;
-    B[2. Audio Preprocessing: Read Audio (librosa) & Zero-Padded DataFrame] --> C;
-    C[3. Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
-    D[4. Dataset Preparation: Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
-    E{5. Data Splitting: Split Dataset} --> E1[Training Set (80%)];
+``` mermaid
+    A[Data Collection: Raga Audio Recordings (.wav, .mp3)] --> B;
+    B[Audio Preprocessing: Read Audio (librosa) & Zero-Padded DataFrame] --> C;
+    C[Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
+    D[Dataset Preparation: Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
+    E{Data Splitting: Split Dataset} --> E1[Training Set (80%)];
     E --> E2[Validation Set (10%)];
     E1 --> F;
     subgraph CNN Model Architecture
-        F[6. Model Architecture (CNN): Input Layer] --> F1(Conv2D Layers);
+        F[Model Architecture (CNN): Input Layer] --> F1(Conv2D Layers);
         F1 --> F2(MaxPooling2D Layers);
         F2 --> F3(Dropout Layers);
         F3 --> F4(Flatten Layer);
@@ -41,9 +41,9 @@ graph TD
         F5 --> F6[Output Layer: Dense + Softmax];
     end
     F6 --> G;
-    G[7. Model Training: Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
-    H[7. Model Training: Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
-
+    G[Model Training: Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
+    H[Model Training: Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
+```
     style A fill:#f9f,stroke:#333
     style I fill:#ccf,stroke:#333
 ## Project Description
