@@ -26,8 +26,8 @@ This project further extends to a third structure with the addition of some audi
 
 ```mermaid
 graph TD;
-    A[Data Collection: Raga Audio Recordings (.wav, .mp3)] --> B;
-    B[Audio Preprocessing: Read Audio (librosa) & Zero-Padded DataFrame] --> C;
+    A[Data Collection:Audio Recordings (.wav, .mp3)] --> B;
+    B[Audio Preprocessing:Read Audio (librosa) & Zero-Padded DataFrame] --> C;
     C[Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
     D[Dataset Preparation: Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
     E{Data Splitting: Split Dataset} --> E1[Training Set (80%)];
