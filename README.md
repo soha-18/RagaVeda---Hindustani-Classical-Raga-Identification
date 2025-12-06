@@ -23,6 +23,30 @@ We then preprocess our dataset using the CSV file with MFCC coefficients and spl
 This project further extends to a third structure with the addition of some audio augmented features with the existing MFCC coefficient to compare the performance of our CNN model with the MFCC model.
 
 ## Project Workflow
+
+graph TD
+    A[1. Data Collection: Raga Audio Recordings (.wav, .mp3)] --> B;
+    B[2. Audio Preprocessing: Read Audio (librosa) & Zero-Padded DataFrame] --> C;
+    C[3. Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
+    D[4. Dataset Preparation: Save Features (MFCCs) & Targets (Ragas) to .csv] --> E;
+    E{5. Data Splitting: Split Dataset} --> E1[Training Set (80%)];
+    E --> E2[Validation Set (10%)];
+    E1 --> F;
+    subgraph CNN Model Architecture
+        F[6. Model Architecture (CNN): Input Layer] --> F1(Conv2D Layers);
+        F1 --> F2(MaxPooling2D Layers);
+        F2 --> F3(Dropout Layers);
+        F3 --> F4(Flatten Layer);
+        F4 --> F5(Dense Layers);
+        F5 --> F6[Output Layer: Dense + Softmax];
+    end
+    F6 --> G;
+    G[7. Model Training: Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
+    H[7. Model Training: Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
+
+    style A fill:#f9f,stroke:#333
+    style I fill:#ccf,stroke:#333
+## Project Description
 1. Data Collection: Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
 2. Audio Preprocessing: Read the audio files using librosa and converts a list of variable-length feature sequences into a uniform, zero-padded Pandas DataFrame, making it suitable for machine learning inputs.
 3. Feature Extraction: For each audio segment, extracts MFCCs along with their first (delta) and second (delta-delta) derivatives from an audio file, then computes their mean over time to produce a single, representative feature vector.This converts the complex audio signal into a 2D representation.
