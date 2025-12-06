@@ -24,7 +24,8 @@ This project further extends to a third structure with the addition of some audi
 
 ## Project Workflow
 
-``` mermaid
+```mermaid
+graph TD;
     A[Data Collection: Raga Audio Recordings (.wav, .mp3)] --> B;
     B[Audio Preprocessing: Read Audio (librosa) & Zero-Padded DataFrame] --> C;
     C[Feature Extraction: Extract MFCCs, Delta, Delta-Delta & Compute Mean] --> D;
