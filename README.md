@@ -27,20 +27,12 @@ This project further extends to a third structure with the addition of some audi
 ```mermaid
 graph TD;
     A-->B;
-    A-->C;
-    B-->D;
+    B-->C;
     C-->D;
-```
-
-```mermaid
-graph TD;
-    A --> B;
-    B --> C;
-    C --> D;
-    D[Dataset Preparation<br>Save Features(MFCCs) & Targets(Ragas)] --> E;
-    E{Data Splitting:Split Dataset} --> E1[Training Set(80%)];
-    E --> E2[Validation Set(10%)];
-    E1 --> F;
+    D[Dataset Preparation<br>Save Features(MFCCs) & Targets(Ragas)]-->E;
+    E{Data Splitting:Split Dataset}-->E1[Training Set(80%)];
+    E-->E2[Validation Set(10%)];
+    E1-->F;
     A[Data Collection<br>Audio Recordings(.wav, .mp3)];
     B[Audio Preprocessing<br>Read Audio(librosa)];
     C[Feature Extraction<br>Extract MFCCs];
