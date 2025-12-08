@@ -26,13 +26,16 @@ This project further extends to a third structure with the addition of some audi
 
 ```mermaid
 graph TD;
-    A[Data Collection<br>Audio Recordings(.wav, .mp3)] --> B;
-    B[Audio Preprocessing<br>Read Audio(librosa)] --> C;
-    C[Feature Extraction<br>Extract MFCCs] --> D;
+    A --> B;
+    B --> C;
+    C --> D;
     D[Dataset Preparation<br>Save Features(MFCCs) & Targets(Ragas)] --> E;
     E{Data Splitting:Split Dataset} --> E1[Training Set(80%)];
     E --> E2[Validation Set(10%)];
     E1 --> F;
+    A[Data Collection<br>Audio Recordings(.wav, .mp3)];
+    B[Audio Preprocessing<br>Read Audio(librosa)];
+    C[Feature Extraction<br>Extract MFCCs];
     subgraph CNN Model Architecture
         F[Model Architecture (CNN): Input Layer] --> F1(Conv2D Layers);
         F1 --> F2(MaxPooling2D Layers);
