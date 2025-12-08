@@ -26,27 +26,34 @@ This project further extends to a third structure with the addition of some audi
 
 ```mermaid
 graph TD;
+    A[Data Collection:Audio Recordings(.wav, .mp3)]-->B;
+    B[Audio Preprocessing:Read Audio(librosa)]-->C;
+    C[Feature Extraction:Extract MFCCs]-->D;
+```
+
+```mermaid
+graph TD;
     A-->B;
     B-->C;
     C-->D;
-    D[Dataset Preparation<br>Save Features(MFCCs) & Targets(Ragas)]-->E;
+    D[Dataset Preparation:Save Features(MFCCs) & Targets(Ragas)]-->E;
     E{Data Splitting:Split Dataset}-->E1[Training Set(80%)];
     E-->E2[Validation Set(10%)];
     E1-->F;
-    A[Data Collection<br>Audio Recordings(.wav, .mp3)];
-    B[Audio Preprocessing<br>Read Audio(librosa)];
-    C[Feature Extraction<br>Extract MFCCs];
+    A[Data Collection:Audio Recordings(.wav, .mp3)];
+    B[Audio Preprocessing:Read Audio(librosa)];
+    C[Feature Extraction:Extract MFCCs];
     subgraph CNN Model Architecture
-        F[Model Architecture (CNN): Input Layer] --> F1(Conv2D Layers);
-        F1 --> F2(MaxPooling2D Layers);
-        F2 --> F3(Dropout Layers);
-        F3 --> F4(Flatten Layer);
-        F4 --> F5(Dense Layers);
-        F5 --> F6[Output Layer: Dense + Softmax];
+        F[Model Architecture (CNN): Input Layer]-->F1(Conv2D Layers);
+        F1-->F2(MaxPooling2D Layers);
+        F2-->F3(Dropout Layers);
+        F3-->F4(Flatten Layer);
+        F4-->F5(Dense Layers);
+        F5-->F6[Output Layer: Dense + Softmax];
     end
-    F6 --> G;
-    G[Model Training<br>Compile (Adam, Categorical Crossentropy, Metrics)] --> H;
-    H[Model Training<br>Fit Model (Training Data) & Monitor (Validation Data)] --> I(Classification Model);
+    F6-->G;
+    G[Model Training:Compile (Adam, Categorical Crossentropy, Metrics)]-->H;
+    H[Model Training:Fit Model (Training Data) & Monitor (Validation Data)]-->I(Classification Model);
 ```
 
 ## Project Description
