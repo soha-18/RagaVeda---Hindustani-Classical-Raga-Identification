@@ -26,9 +26,13 @@ This project further extends to a third structure with the addition of some audi
 
 ```mermaid
 graph TD;
-    A[Data Collection:Audio Recordings(.wav, .mp3)]-->B;
-    B[Audio Preprocessing:Read Audio(librosa)]-->C;
-    C[Feature Extraction:Extract MFCCs]-->D;
+    A-->B;
+    B-->C;
+    C-->D;
+    D-->E;
+    E-->E1;
+    E-->E2;
+    E1-->F;
 ```
 
 ```mermaid
