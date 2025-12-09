@@ -25,11 +25,12 @@ This project further extends to a third structure with the addition of some audi
 ## Project Workflow
 
 ```mermaid
-graph TD;
+graph LR;
+    A["Data Collection:Audio Recordings(.wav, .mp3)"]
     A-->B;
-    B-->C;
-    C-->D;
-    D-->E;
+    B["Audio Preprocessing:Read Audio(librosa)"]-->C;
+    C["Feature Extraction:Extract MFCCs"]-->D;
+    D["Dataset Preparation:Save Features(MFCCs) & Targets(Ragas)"]-->E;
     E-->E1;
     E-->E2;
     E1-->F;
