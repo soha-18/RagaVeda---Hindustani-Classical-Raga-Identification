@@ -33,11 +33,11 @@ graph LR;
     D["Dataset Preparation:Save Features(MFCCs) & Targets(Ragas)"]-->E;
     E{"Data Splitting:Split Dataset"}-->E1["Training Set(80%)"];
     E-->E2["Validation Set(10%)"];
-    E1-->F;
+    E1-->F["Model Architecture (CNN): Input Layer"];
 ```
 
     subgraph CNN Model Architecture
-        F["Model Architecture (CNN): Input Layer"]-->F1("Conv2D Layers");
+        F-->F1("Conv2D Layers");
         F1-->F2("MaxPooling2D Layers");
         F2-->F3("Dropout Layers");
         F3-->F4("Flatten Layer");
