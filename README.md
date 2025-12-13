@@ -34,7 +34,8 @@ graph LR;
     E{"Data Splitting:Split Dataset"}-->E1["Training Set(80%)"];
     E-->E2["Validation Set(10%)"];
     E1-->F["Model Architecture (CNN): Input Layer"];
-
+```
+  flowchart TD
     subgraph CNN Model Architecture
         F-->F1["Conv2D Layers"]
         F1-->F2["MaxPooling2D Layers"]
