@@ -34,20 +34,9 @@ graph LR;
     E{"Data Splitting:Split Dataset"}-->E1["Training Set(80%)"];
     E-->E2["Validation Set(10%)"];
     E1-->F["Model Architecture (CNN): Input Layer"];
-
-flowchart LR;
-    subgraph CNN Model Architecture
-        F-->F1["Conv2D Layers"]
-        F1-->F2["MaxPooling2D Layers"]
-        F2-->F3["Dropout Layers"]
-        F3-->F4["Flatten Layer"]
-        F4-->F5["Dense Layers"]
-        F5-->F6["Output Layer: Dense + Softmax"]
-    end
-    F6-->G;
+    F-->G;
     G["Model Training:Compile(Adam, Categorical Crossentropy, Metrics)"]-->H;
     H[Model Training:Fit Model (Training Data) & Monitor (Validation Data)]-->I(Classification Model);
-
 ```
 
 ## Project Description
