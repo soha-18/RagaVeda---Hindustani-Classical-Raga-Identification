@@ -34,8 +34,7 @@ graph LR;
     E{"Data Splitting:Split Dataset"}-->E1["Training Set(80%)"];
     E-->E2["Validation Set(10%)"];
     E1-->F["Model Architecture (CNN): Input Layer"];
-    G["Model Training:Compile(Adam, Categorical Crossentropy, Metrics)"]-->H;
-    H[Model Training:Fit Model (Training Data) & Monitor (Validation Data)]-->I(Classification Model);
+
 ```
 flowchart LR 
     subgraph CNN Model Architecture
@@ -47,7 +46,8 @@ flowchart LR
         F5-->F6["Output Layer: Dense + Softmax"]
     end
     F6-->G;
-    
+    G["Model Training:Compile(Adam, Categorical Crossentropy, Metrics)"]-->H;
+    H[Model Training:Fit Model (Training Data) & Monitor (Validation Data)]-->I(Classification Model);
 
 ## Project Description
 1. Data Collection: Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
