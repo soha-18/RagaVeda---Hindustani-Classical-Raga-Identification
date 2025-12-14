@@ -36,7 +36,7 @@ graph LR;
     E1-->F["Model Architecture (CNN): Input Layer"];
     F-->G;
     G["Model Training:Compile(Adam, Categorical Crossentropy, Metrics)"]-->H;
-    H[Model Training:Fit Model (Training Data) & Monitor (Validation Data)]-->I(Classification Model);
+    H["Model Training:Fit Model (Training Data) & Monitor (Validation Data)"]-->I("Classification Model");
 ```
 
 ## Project Description
