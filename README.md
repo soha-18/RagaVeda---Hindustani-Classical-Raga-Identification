@@ -38,9 +38,7 @@ graph LR;
     G["Model Training:Compile(Adam, Categorical Crossentropy, Metrics)"]-->H;
     H["Model Training:Fit Model (Training Data) & Monitor (Validation Data)"]-->I("Classification Model");
 ```
-```
-subgraph CNN model
-```
+
 ## Project Description
 1. Data Collection: Collect the audio recordings (.wav, .mp3) of the Hindustani classical ragas for classification.
 2. Audio Preprocessing: Read the audio files using librosa and converts a list of variable-length feature sequences into a uniform, zero-padded Pandas DataFrame, making it suitable for machine learning inputs.
